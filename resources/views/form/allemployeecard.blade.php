@@ -103,6 +103,7 @@
                                                 <option value="{{ $user->name }}" data-employee_id={{ $user->user_id }} data-email={{ $user->email }}>{{ $user->name }}</option>
                                             @endforeach
                                         </select>
+                                        <!-- <input class="form-control" type="text" id="name" name="name" placeholder="Full Name"> -->
                                     </div>
                                 </div>
                             
@@ -242,6 +243,8 @@
             $('#employee_id').val($(this).find(':selected').data('employee_id'));
             $('#email').val($(this).find(':selected').data('email'));
         });
+
+        
     </script>
     {{-- update js --}}
     <script>

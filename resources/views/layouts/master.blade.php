@@ -246,7 +246,7 @@
 	<script src="{{ URL::to('assets/js/app.js') }}"></script>
 	@yield('script')
 	<center>
-	<h4><a href="https://linkalltechnology.com/">Powered By : Link All Technology Share Company</a></h4>
+	<h4><a href="https://linkalltechnology.com/">Powered By : Andinet ICT Solution.</a></h4>
 	</center>
 </body>
 </html>

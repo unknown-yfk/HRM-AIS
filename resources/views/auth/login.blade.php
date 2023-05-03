@@ -45,19 +45,19 @@
                                     <div class="col">
                                         <label></label>
                                     </div>
-                                    <div class="col-auto">
+                                    <!-- <div class="col-auto">
                                         <a class="text-muted" href="{{ route('forget-password') }}">
                                             Forgot password?
                                         </a>
-                                    </div>
+                                    </div> -->
                                 </div>
                             </div>
                             <div class="form-group text-center">
                                 <button class="btn btn-primary account-btn" type="submit">Login</button>
                             </div>
-                            <div class="account-footer">
+                            <!-- <div class="account-footer">
                                 <p>Don't have an account yet? <a href="{{ route('register') }}">Register</a></p>
-                            </div>
+                            </div> -->
                         </form>
                         <!-- /Account Form -->
                     </div>
