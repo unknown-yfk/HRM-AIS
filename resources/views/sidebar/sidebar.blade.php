@@ -13,11 +13,15 @@
                         <span> Dashboard</span> <span class="menu-arrow"></span>
                     </a>
                     <ul style="{{ request()->is('/*') ? 'display: block;' : 'display: none;' }}">
+                    @if (Auth::user()->role_name=='Admin' || Auth::user()->role_name=='Super Admin' || Auth::user()->role_name=='HR')
                         <li><a class="{{set_active(['home'])}}" href="{{ route('home') }}">Admin Dashboard</a></li>
                         <li><a class="{{set_active(['em/dashboard'])}}" href="{{ route('em/dashboard') }}">Employee Dashboard</a></li>
+                    @elseif (Auth::user()->role_name=='Employee')
+                    <li><a class="{{set_active(['em/dashboard'])}}" href="{{ route('em/dashboard') }}">Employee Dashboard</a></li>
+                        @endif
                     </ul>
                 </li>
-                @if (Auth::user()->role_name=='Admin')
+                @if (Auth::user()->role_name=='Admin' || Auth::user()->role_name=='Super Admin' || Auth::user()->role_name=='HR')
                     <li class="menu-title"> <span>Authentication</span> </li>
                     <li class="{{set_active(['search/user/list','userManagement','activity/log','activity/login/logout'])}} submenu">
                         <a href="#" class="{{ set_active(['search/user/list','userManagement','activity/log','activity/login/logout']) ? 'noti-dot' : '' }}">

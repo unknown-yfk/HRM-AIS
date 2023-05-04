@@ -20,7 +20,7 @@ class UserManagementController extends Controller
 {
     public function index()
     {
-        if (Auth::user()->role_name=='Admin')
+        if (Auth::user()->role_name=='Admin' || Auth::user()->role_name=='Super Admin' || Auth::user()->role_name=='HR' )
         {
             $result      = DB::table('users')->get();
             $role_name   = DB::table('role_type_users')->get();

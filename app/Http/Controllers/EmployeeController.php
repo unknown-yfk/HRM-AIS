@@ -7,6 +7,7 @@ use DB;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\Employee;
 use App\Models\department;
+use App\Models\designation;
 use App\Models\User;
 use App\Models\module_permission;
 
@@ -363,7 +364,7 @@ class EmployeeController extends Controller
     public function saveRecordDepartment(Request $request)
     {
         $request->validate([
-            'department'        => 'required|string|max:255',
+            'department' => 'required|string|max:255',
         ]);
 
         DB::beginTransaction();
@@ -433,8 +434,55 @@ class EmployeeController extends Controller
     /** page designations */
     public function designationsIndex()
     {
+        $designations = DB::table('designations')->get();
         return view('form.designations');
     }
+
+    public function saveRecordDesignations(Request $request)
+    {
+
+        $request->validate([
+            'designation'  => 'required|string|max:255',
+            
+        ]);
+
+        DB::beginTransaction();
+        
+        try{
+
+            $designation = designation::where('designation',$request->designation)->first();
+            if ($designation === null)
+            {
+                $designation = new designation;
+                $designation->designation  = $request->designation;
+                $designation->save();
+                
+                DB::commit();
+                Toastr::success('Add new designation successfully :)','Success');
+                return redirect()->route('form/designations/page');
+            } else {
+                DB::rollback();
+                Toastr::error('Add new designation exits :)','Error');
+                return redirect()->back();
+            }
+        }catch(\Exception $e){
+            DB::rollback();
+            Toastr::error('Add new designation fail :)','Error');
+            return redirect()->back();
+
+           
+         
+        }
+    }
+
+    
+
+
+
+
+
+
+
 
     /** page time sheet */
     public function timeSheetIndex()

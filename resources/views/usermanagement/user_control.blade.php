@@ -65,12 +65,13 @@
                                     <th>Phone</th>
                                     <th>Join Date</th>
                                     <th>Role</th>
-                                    <!-- @if (Auth::user()->role_name=='Super Admin') -->
                                     <th>Status</th>
                                     <th>Departement</th>
+                                    <th class="text-right">Action</th>
+                                    <!-- @if (Auth::user()->role_name=='Super Admin') -->
                                     <!-- @endif -->
                                     <!-- @if (Auth::user()->role_name=='Super Admin') -->
-                                    <th class="text-right">Action</th>
+                                   
                                     <!-- @endif -->
                                 </tr>
                             </thead>
@@ -95,15 +96,13 @@
                                             <span class="badge bg-inverse-danger role_name">{{ $user->role_name }}</span>
                                             @elseif ($user->role_name=='Super Admin')
                                             <span class="badge bg-inverse-warning role_name">{{ $user->role_name }}</span>
-                                            @elseif ($user->role_name=='Normal User')
+                                            @elseif ($user->role_name=='HR')
                                             <span class="badge bg-inverse-info role_name">{{ $user->role_name }}</span>
-                                            @elseif ($user->role_name=='Client')
-                                            <span class="badge bg-inverse-success role_name">{{ $user->role_name }}</span>
                                             @elseif ($user->role_name=='Employee')
                                             <span class="badge bg-inverse-dark role_name">{{ $user->role_name }}</span>
                                         @endif
                                     </td>
-                                    <!-- @if (Auth::user()->role_name=='Super Admin') -->
+                                   
                                     <td>
                                         <div class="dropdown action-label">
                                             @if ($user->status=='Active')
@@ -142,24 +141,24 @@
                                         </div>
                                     </td>
 
-                                    <!-- @endif -->
+                                  
 
 
                                     <td class="department">{{ $user->department }}</td>
 
-                                    <!-- @if (Auth::user()->role_name=='Super Admin') -->
+                                    
                                     <td class="text-right">
 
                                         <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                             <!--  -->
-                                           
+
                                             <div class="dropdown-menu dropdown-menu-right">
                                                 <a class="dropdown-item userUpdate" data-toggle="modal" data-id="'.$user->id.'" data-target="#edit_user"><i class="fa fa-pencil m-r-5"></i> Edit</a>
                                                 <a class="dropdown-item userDelete" href="#" data-toggle="modal" ata-id="'.$user->id.'" data-target="#delete_user"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                             </div>
                                         </div>
-                                            <!-- @endif -->
+                                          
                                     </td>
                                 </tr>
                                 @endforeach
