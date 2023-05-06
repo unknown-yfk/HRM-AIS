@@ -434,8 +434,11 @@ class EmployeeController extends Controller
     /** page designations */
     public function designationsIndex()
     {
-        $designations = DB::table('designations')->get();
-        return view('form.designations');
+        $designation = DB::table('designations')->get();
+        $department  = DB::table('departments')->get();
+
+
+        return view('form.designations',compact('designation','department'));
     }
 
     public function saveRecordDesignations(Request $request)
@@ -443,6 +446,7 @@ class EmployeeController extends Controller
 
         $request->validate([
             'designation'  => 'required|string|max:255',
+            'department'=> 'required|string|max:255'
             
         ]);
 
@@ -455,6 +459,7 @@ class EmployeeController extends Controller
             {
                 $designation = new designation;
                 $designation->designation  = $request->designation;
+                $designation->department   = $request->department;
                 $designation->save();
                 
                 DB::commit();
@@ -477,11 +482,49 @@ class EmployeeController extends Controller
 
     
 
+    public function updateRecordDesignations(Request $request)
+    {
+
+    /** update record designations */
+    DB::beginTransaction();
+    try{
+        // update table designations
+        $designation = [
+            'id'=>$request->id,
+            'designation'=>$request->designation,
+        ];
+
+        return dd($designation);
+        designation::where('id',$request->id)->update($designation);
+    
+        DB::commit();
+        Toastr::success('updated record successfully :)','Success');
+        return redirect()->route('form/designations/page');
+    } catch(\Exception $e) {
+        DB::rollback();
+        Toastr::error('updated record fail :)','Error');
+        return redirect()->back();
+    }
 
 
+    }
 
-
-
+     /** delete record designations */
+     public function deleteRecordDesignations(Request $request) 
+     {
+         try {
+ 
+            designation::destroy($request->id);
+             Toastr::success('Designation deleted successfully :)','Success');
+             return redirect()->back();
+         
+         } catch(\Exception $e) {
+ 
+             DB::rollback();
+             Toastr::error('Designation delete fail :)','Error');
+             return redirect()->back();
+         }
+     }
 
 
     /** page time sheet */

@@ -30,6 +30,7 @@
                     <div class="table-responsive">
                         <table class="table table-striped custom-table mb-0 datatable">
                             <thead>
+
                                 <tr>
                                     <th style="width: 30px;">#</th>
                                     <th>Designation </th>
@@ -37,46 +38,36 @@
                                     <th class="text-right">Action</th>
                                 </tr>
                             </thead>
+                           
                             <tbody>
+                            @foreach ($designation as $key=>$items )
                                 <tr>
-                                    <td>1</td>
-                                    <td>Web Designer</td>
-                                    <td>Web Development</td>
+                                <td>{{ ++$key }}</td>
+                                <td hidden  class="id">{{ $items->id }}</td>
+                                <td class="designations">{{ $items->designation }}</td>
+                                    <td class="department">{{ $items->department }}</td>
                                     <td class="text-right">
                                     <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                         <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_designation"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_designation"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                        </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>Web Developer</td>
-                                    <td>Web Development</td>
-                                    <td class="text-right">
-                                    <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                        <div class="dropdown-menu dropdown-menu-right">
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_designation"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                            <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_designation"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                        </div>
+                                            <a class="dropdown-item  edit_designation" href="#" data-toggle="modal" data-target="#edit_designation"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                            <a class="dropdown-item delete_designation" href="#" data-toggle="modal" data-target="#delete_designation"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                           </div>
                                         </div>
                                     </td>
                                 </tr>
-                              
                                     </td>
                                 </tr>
+                                @endforeach
                             </tbody>
+
                         </table>
                     </div>
                 </div>
             </div>
         </div>
         <!-- /Page Content -->
-
+                             
         <!-- Add Designation Modal -->
         <div id="add_designation" class="modal custom-modal fade" role="dialog">
             <div class="modal-dialog modal-dialog-centered" role="document">
@@ -100,15 +91,20 @@
                                     </span>
                                 @enderror
                             </div>
-                            <!-- <div class="form-group">
+
+                            
+                            <div class="form-group">
                                 <label>Department <span class="text-danger">*</span></label>
-                                <select class="select">
-                                    <option>Select Department</option>
-                                    <option>Web Development</option>
-                                    <option>IT Management</option>
-                                    <option> Marketing</option>
-                                </select>
-                            </div> -->
+
+                                <select class="select" name="department" id="department">
+                                        <option selected disabled> --Select --</option>
+                                        @foreach ($department as $departments )
+                                        <option value="{{ $departments->department }}">{{ $departments->department }}</option>
+                                        @endforeach
+                                    </select>
+                                    
+                            </div>
+                            
                             <div class="submit-section">
                                 <button class="btn btn-primary submit-btn">Submit</button>
                             </div>
@@ -130,19 +126,20 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                    <form action="{{ route('form/designations/update') }}" method="POST">
+                    @csrf
+                            <input hidden type="text" name="id" id="e_id" value="">
                             <div class="form-group">
                                 <label>Designation Name <span class="text-danger">*</span></label>
-                                <input class="form-control" value="Web Developer" type="text">
+                                <input class="form-control" value="" type="text" id="designation_edit" name="designation">
                             </div>
                             <div class="form-group">
                                 <label>Department <span class="text-danger">*</span></label>
-                                <select class="select">
-                                    <option>Select Department</option>
-                                    <option>Web Development</option>
-                                    <option>IT Management</option>
-                                    <option>Marketing</option>
-                                </select>
+                                 <select class="select" name="department" id="e_department">
+                                        @foreach ($department as $departments )
+                                        <option value="{{ $departments->department }}">{{ $departments->department }}</option>
+                                        @endforeach
+                                    </select>
                             </div>
                             <div class="submit-section">
                                 <button class="btn btn-primary submit-btn">Save</button>
@@ -164,14 +161,18 @@
                             <p>Are you sure want to delete?</p>
                         </div>
                         <div class="modal-btn delete-action">
+                        <form action="{{ route('form/designations/delete') }}" method="POST">
+                               @csrf
+                                <input type="hidden" name="id" class="e_id" value="">
                             <div class="row">
                                 <div class="col-6">
-                                    <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                                    <button type="submit" class="btn btn-primary continue-btn submit-btn">Delete</button>
                                 </div>
                                 <div class="col-6">
-                                    <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                                    <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn ">Cancel</a>
                                 </div>
                             </div>
+                        </form>
                         </div>
                     </div>
                 </div>
@@ -183,6 +184,29 @@
     <!-- /Page Wrapper -->
 
     @section('script')
-    
+    {{-- update js --}}
+    <script>
+        $(document).on('click','.edit_designation',function()
+        {
+            var _this = $(this).parents('tr');
+            $('#e_id').val(_this.find('.id').text());
+            $('#designation_edit').val(_this.find('.designations').text());
+
+            var department = (_this.find(".department").text());
+            var _option = '<option selected value="' +department+ '">' + _this.find('.department').text() + '</option>'
+            $( _option).appendTo("#e_department");
+
+        });
+    </script>
+    {{-- delete model --}}
+    <script>
+        $(document).on('click','.delete_designation',function()
+        {
+            var _this = $(this).parents('tr');
+            $('.e_id').val(_this.find('.id').text());
+
+           
+        });
+    </script>
     @endsection
 @endsection

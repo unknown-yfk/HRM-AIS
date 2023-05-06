@@ -10,5 +10,6 @@ class designation extends Model
     use HasFactory;
     protected $fillable = [
         'designation',
+        'department'
     ];
 }
