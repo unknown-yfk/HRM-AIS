@@ -494,7 +494,6 @@ class EmployeeController extends Controller
             'designation'=>$request->designation,
         ];
 
-        return dd($designation);
         designation::where('id',$request->id)->update($designation);
     
         DB::commit();
