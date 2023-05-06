@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: May 02, 2023 at 11:06 AM
--- Server version: 10.4.27-MariaDB
--- PHP Version: 8.0.25
+-- Host: localhost
+-- Generation Time: May 06, 2023 at 12:02 PM
+-- Server version: 10.4.28-MariaDB
+-- PHP Version: 8.0.28
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -89,7 +89,10 @@ INSERT INTO `activity_logs` (`id`, `name`, `email`, `description`, `date_time`, 
 (45, 'abubeker ahmed', 'abubeker0934@gmail.com', 'Has log out', 'Tue, May 2, 2023 12:36 PM', NULL, NULL),
 (46, 'hassen seid', 'hassen@gmail.com', 'Has log in', 'Tue, May 2, 2023 12:36 PM', NULL, NULL),
 (47, 'hassen seid', 'hassen@gmail.com', 'Has log out', 'Tue, May 2, 2023 12:37 PM', NULL, NULL),
-(48, 'abubeker ahmed', 'abubeker0934@gmail.com', 'Has log in', 'Tue, May 2, 2023 12:37 PM', NULL, NULL);
+(48, 'abubeker ahmed', 'abubeker0934@gmail.com', 'Has log in', 'Tue, May 2, 2023 12:37 PM', NULL, NULL),
+(49, 'admin', 'fkt2119@fdj.com', 'Has log in', 'Sat, May 6, 2023 4:34 PM', NULL, NULL),
+(50, 'admin', 'fkt2119@fdj.com', 'Has log in', 'Sat, May 6, 2023 4:39 PM', NULL, NULL),
+(51, 'yeam', 'fkt2119@23.com', 'Has log in', 'Sat, May 6, 2023 4:44 PM', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -196,6 +199,30 @@ INSERT INTO `departments` (`id`, `department`, `created_at`, `updated_at`) VALUE
 (3, 'Marketing', NULL, NULL),
 (4, 'nbjhjnh', '2023-04-09 00:15:24', '2023-04-09 00:15:24'),
 (5, 'Network Infrastracture', '2023-04-09 10:30:18', '2023-04-09 10:30:18');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `designations`
+--
+
+CREATE TABLE `designations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `designation` varchar(255) DEFAULT NULL,
+  `department` varchar(255) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `designations`
+--
+
+INSERT INTO `designations` (`id`, `designation`, `department`, `created_at`, `updated_at`) VALUES
+(1, 'Web Department', '', NULL, NULL),
+(2, 'IT Management', '', NULL, NULL),
+(3, 'Marketing', '', NULL, NULL),
+(4, 'new', 'IT Management', '2023-05-06 13:58:35', '2023-05-06 13:58:35');
 
 -- --------------------------------------------------------
 
@@ -431,7 +458,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (35, '2022_10_08_052414_create_apply_for_jobs_table', 1),
 (36, '2022_12_18_175400_create_categories_table', 1),
 (37, '2022_12_24_180155_create_answers_table', 1),
-(38, '2022_12_24_182824_create_questions_table', 1);
+(38, '2022_12_24_182824_create_questions_table', 1),
+(39, '2023_05_04_195253_create_designations_table', 2);
 
 -- --------------------------------------------------------
 
@@ -841,7 +869,9 @@ CREATE TABLE `sequence_tbls` (
 INSERT INTO `sequence_tbls` (`id`) VALUES
 (1),
 (2),
-(3);
+(3),
+(4),
+(5);
 
 -- --------------------------------------------------------
 
@@ -1012,7 +1042,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `name`, `user_id`, `email`, `join_date`, `phone_number`, `status`, `role_name`, `avatar`, `position`, `department`, `email_verified_at`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
 (1, 'abubeker ahmed', 'KH_00001', 'abubeker0934@gmail.com', 'Fri, Apr 7, 2023 12:57 PM', '+251934393329', 'Active', 'Admin', '861273854.jpg', 'Team Leader', 'IT Management', NULL, '$2y$10$uCZ0ri5eAKv9pHr/3IFLxuEXlzjMYPCG0WQB6/w0tDZh/8cfnXsMi', NULL, '2023-04-07 09:57:58', '2023-05-02 09:15:31'),
 (2, 'yabsra', 'KH_00002', 'yabsra@gmail.com', 'Sun, Apr 9, 2023 1:15 PM', NULL, 'Active', 'Employee', 'photo_defaults.jpg', NULL, NULL, NULL, '$2y$10$UzH7jjdZvp2wHVEHhSIlR.vql5mB2EQDNJum3E5Wncab.WgF7olIO', NULL, '2023-04-09 10:15:29', '2023-04-09 10:15:29'),
-(3, 'hassen seid', 'KH_00003', 'hassen@gmail.com', 'Tue, May 2, 2023 8:28 AM', '+251934393329', 'Active', 'Normal User', '1682990885.jpg', 'Web Designer', 'IT Management', NULL, '$2y$10$my4HT77WcToFml9xnPsKSO2gBrMaapS8S4EoOcs3FlsB2DFJYoYDq', NULL, '2023-05-02 05:28:06', '2023-05-02 05:30:22');
+(3, 'hassen seid', 'KH_00003', 'hassen@gmail.com', 'Tue, May 2, 2023 8:28 AM', '+251934393329', 'Active', 'Normal User', '1682990885.jpg', 'Web Designer', 'IT Management', NULL, '$2y$10$my4HT77WcToFml9xnPsKSO2gBrMaapS8S4EoOcs3FlsB2DFJYoYDq', NULL, '2023-05-02 05:28:06', '2023-05-02 05:30:22'),
+(4, 'admin', 'KH_00004', 'fkt2119@fdj.com', 'Sat, May 6, 2023 4:34 PM', NULL, 'Active', 'Admin', 'photo_defaults.jpg', NULL, NULL, NULL, '$2y$10$AkYHCyBYl4qGIx/OkntSDeK5JINNCN3KHWQAdMVZglB5M.pnDq7sa', NULL, '2023-05-06 13:34:44', '2023-05-06 13:34:44'),
+(5, 'yeam', 'KH_00005', 'fkt2119@23.com', 'Sat, May 6, 2023 4:44 PM', NULL, 'Active', 'Admin', 'photo_defaults.jpg', NULL, NULL, NULL, '$2y$10$yBmRfOn.HdktI7HinJjhLOVlYNopW1Ep/hWqo.uYFCj.95ZcsHbCW', NULL, '2023-05-06 13:44:28', '2023-05-06 13:44:28');
 
 --
 -- Triggers `users`
@@ -1112,6 +1144,12 @@ ALTER TABLE `categories`
 -- Indexes for table `departments`
 --
 ALTER TABLE `departments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `designations`
+--
+ALTER TABLE `designations`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -1313,7 +1351,7 @@ ALTER TABLE `user_types`
 -- AUTO_INCREMENT for table `activity_logs`
 --
 ALTER TABLE `activity_logs`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=49;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 
 --
 -- AUTO_INCREMENT for table `add_jobs`
@@ -1344,6 +1382,12 @@ ALTER TABLE `categories`
 --
 ALTER TABLE `departments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+
+--
+-- AUTO_INCREMENT for table `designations`
+--
+ALTER TABLE `designations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `employees`
@@ -1391,7 +1435,7 @@ ALTER TABLE `leaves_admins`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=40;
 
 --
 -- AUTO_INCREMENT for table `module_permissions`
@@ -1475,7 +1519,7 @@ ALTER TABLE `sequence_estimates`
 -- AUTO_INCREMENT for table `sequence_tbls`
 --
 ALTER TABLE `sequence_tbls`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `staff_salaries`
@@ -1511,7 +1555,7 @@ ALTER TABLE `type_jobs`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `user_activity_logs`
