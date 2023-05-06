@@ -505,7 +505,6 @@ class EmployeeController extends Controller
         return redirect()->back();
     }
 
-
     }
 
      /** delete record designations */
