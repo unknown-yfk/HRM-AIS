@@ -20,7 +20,11 @@
                     <div class="card dash-widget">
                         <div class="card-body"> <span class="dash-widget-icon"><i class="fa fa-cubes"></i></span>
                             <div class="dash-widget-info">
-                                <h3>112</h3> <span>Projects</span>
+                            @php 
+                               $users=DB::table('users')->select('id')->Count('id');
+                            @endphp
+                         
+                                <h3> {{$users}}</h3> <span>Total Users</span>
                             </div>
                         </div>
                     </div>
@@ -29,7 +33,10 @@
                     <div class="card dash-widget">
                         <div class="card-body"> <span class="dash-widget-icon"><i class="fa fa-usd"></i></span>
                             <div class="dash-widget-info">
-                                <h3>44</h3> <span>Clients</span>
+                            @php 
+                               $admin=DB::table('users')->select('id')->where('role_name','Admin')->Count('id');
+                            @endphp
+                                <h3>{{$admin}}</h3> <span>Admin Users</span>
                             </div>
                         </div>
                     </div>
@@ -38,7 +45,10 @@
                     <div class="card dash-widget">
                         <div class="card-body"> <span class="dash-widget-icon"><i class="fa fa-diamond"></i></span>
                             <div class="dash-widget-info">
-                                <h3>37</h3> <span>Tasks</span>
+                            @php 
+                               $hrs=DB::table('users')->select('id')->where('role_name','HRM')->Count('id');
+                            @endphp
+                                <h3>{{$hrs}}</h3> <span>HRM Users</span>
                             </div>
                         </div>
                     </div>
@@ -47,7 +57,10 @@
                     <div class="card dash-widget">
                         <div class="card-body"> <span class="dash-widget-icon"><i class="fa fa-user"></i></span>
                             <div class="dash-widget-info">
-                                <h3>218</h3> <span>Employees</span>
+                            @php 
+                               $employees=DB::table('users')->select('id')->where('role_name','Employee')->Count('id');
+                            @endphp
+                                <h3>{{ $employees}}</h3> <span>Employees</span>
                             </div>
                         </div>
                     </div>

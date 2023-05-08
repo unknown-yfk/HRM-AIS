@@ -525,10 +525,40 @@ class EmployeeController extends Controller
      }
 
 
+
+
+
+
+        /** page projects */
+
+        public function projectsIndex() 
+        {
+
+            return view('form.projects');
+
+        }
+
+
+
+        
+
+
+
+
+
+
+
+
+
+
     /** page time sheet */
     public function timeSheetIndex()
     {
+
+
         return view('form.timesheet');
+
+
     }
 
     /** page overtime */

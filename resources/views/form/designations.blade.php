@@ -95,7 +95,6 @@
                             
                             <div class="form-group">
                                 <label>Department <span class="text-danger">*</span></label>
-
                                 <select class="select" name="department" id="department">
                                         <option selected disabled> --Select --</option>
                                         @foreach ($department as $departments )

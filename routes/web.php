@@ -193,6 +193,15 @@ Route::controller(EmployeeController::class)->group(function () {
     Route::post('form/designations/update', 'updateRecordDesignations')->middleware('auth')->name('form/designations/update');    
     Route::post('form/designations/delete', 'deleteRecordDesignations')->middleware('auth')->name('form/designations/delete');
     
+
+
+    Route::get('form/projects/page','projectsIndex')->middleware('auth')->name('form/projects/page');
+    Route::post('form/projects/save', 'saveRecordsProjects')->middleware('auth')->name('form/projects/save');
+    Route::post('form/projects/update', 'updateRecordProjects')->middleware('auth')->name('form/projects/update');
+    Route::post('form/projects/delete', 'deleteRecordProjects')->middleware('auth')->name('form/projects/delete');
+
+
+
     Route::get('form/timesheet/page', 'timeSheetIndex')->middleware('auth')->name('form/timesheet/page');    
     Route::post('form/timesheet/save', 'saveRecordTimeSheets')->middleware('auth')->name('form/timesheet/save');    
     Route::post('form/timesheet/update', 'updateRecordTimeSheets')->middleware('auth')->name('form/timesheet/update');    
