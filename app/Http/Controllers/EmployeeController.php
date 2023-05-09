@@ -537,13 +537,25 @@ class EmployeeController extends Controller
        
             $users = DB::table('users')
             ->join('projects', 'users.user_id', '=', 'projects.leader_id')
-            ->select('users.*', 'users.avatar','users.user_id')
+            ->select('users.*', 'projects.project_name', 'projects.project_leader', 'projects.description','projects.deadline'
+            ,'projects.status')
             ->get();
             $userList = DB::table('users')->get();
             
             return view('form.projects',compact( 'users','userList'));
 
         }
+
+
+
+
+
+
+
+
+
+
+
 
 
         

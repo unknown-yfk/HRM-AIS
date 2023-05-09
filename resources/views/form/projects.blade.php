@@ -40,20 +40,22 @@
                                 </tr>
                             </thead>
                             <tbody>  
-                            @foreach ($users as $items )
+                            
+                            @foreach ($users as $key=>$items )
                                 <tr>
-                                    <td>1</td>
-                                    <td>ERP</td>
+                                <td>{{ ++$key }}</td>
+                                    <td>{{ $items->project_name }}</td>
                                     <td>
                                         <h2 class="table-avatar">
                                             <a href="profile.html" class="avatar avatar-xs"><img src="{{URL::to('assets/img/profiles/avatar-09.jpg')}}" alt=""></a>
-                                            <a href="#">Richard Miles</a>
+                                            <a href="#">{{ $items->project_leader }}
+                                            </a>
                                         </h2>
                                     </td>
                                     <td>
-                                        <p>erp system for small enterprise</p>
+                                        <p>{{ $items->description }}</p>
                                     </td>
-                                    <td>8 Mar 2019</td>
+                                    <td>{{ $items->deadline }}</td>
                                     
                                     <td class="text-center">
                                                 <div class="dropdown action-label">
@@ -166,11 +168,11 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form action="{{ route('form/leaves/save') }}" method="POST">
+                    <form action="{{ route('form/projects/update') }}" method="POST">
                             @csrf
                             <div class="form-group">
                                         <label class="col-form-label">Project Name <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" id="project" name="project" placeholder="Project Name">
+                                        <input class="form-control @error('designation') is-invalid @enderror" type="text" id="project_name" name="project_name" placeholder="Project Name">
                                     </div>
                             <div class="form-group">
                                 <label>Project Leader <span class="text-danger">*</span></label>
