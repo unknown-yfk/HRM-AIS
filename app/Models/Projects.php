@@ -17,8 +17,6 @@ class Projects extends Model
         'deadline',
         'status',
         'description'
-        
-
     ];
 
 

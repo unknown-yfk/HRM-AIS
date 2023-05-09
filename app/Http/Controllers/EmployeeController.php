@@ -535,24 +535,25 @@ class EmployeeController extends Controller
         public function projectsIndex() 
         {
        
-            $projects = DB::table('projects')
-            ->join('users', 'users.user_id', '=', 'projects.leader_id')
-            ->select('projects.*', 'users.avatar','users.user_id')
+            $users = DB::table('users')
+            ->join('projects', 'users.user_id', '=', 'projects.leader_id')
+            ->select('users.*', 'users.avatar','users.user_id')
             ->get();
             $userList = DB::table('users')->get();
             
-            return view('form.projects',compact( 'projects','userList'));
+            return view('form.projects',compact( 'users','userList'));
 
         }
 
 
         
         public function saveRecordsProjects(Request $request)
+        
         {
     
             $request->validate([
 
-                
+                'leader_id'     =>      'required|string|max:255',
                 'project_name'     =>    'required|string|max:255',
                 'project_leader'   =>    'required|string|max:255',
                 'deadline'         =>    'required|string|max:255',
@@ -568,7 +569,7 @@ class EmployeeController extends Controller
               
             try {
 
-                $projects = Projects::where('project_name',$request->projects)->first();
+                $projects = Projects::where('project_name', '=',$request->project_name)->first();
                
                 if ($projects === null)
                 {

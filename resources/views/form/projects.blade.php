@@ -40,6 +40,7 @@
                                 </tr>
                             </thead>
                             <tbody>  
+                            @foreach ($users as $items )
                                 <tr>
                                     <td>1</td>
                                     <td>ERP</td>
@@ -77,6 +78,8 @@
                                         </div>
                                     </td>
                                 </tr>
+
+                                @endforeach
                             </tbody>
                         </table>
                     </div>
@@ -121,7 +124,7 @@
                                 </select>   
                                 
                             </div>
-                            <input type="text" class="form-control" id="leader_id" name="leader_id" readonly>
+                            <input type="hidden" class="form-control" id="leader_id" name="leader_id" readonly>
                         
                             <div class="form-group">
                                 <label>Deadline <span class="text-danger">*</span></label>
@@ -255,19 +258,11 @@
     @section('script')
     {{-- update js --}}
     <script>
-        $(document).on('click','.edit_department',function()
+        // select auto id and email
+        $('#project_leader').on('change',function()
         {
-            var _this = $(this).parents('tr');
-            $('#e_id').val(_this.find('.id').text());
-            $('#department_edit').val(_this.find('.department').text());
-        });
-    </script>
-    {{-- delete model --}}
-    <script>
-        $(document).on('click','.delete_department',function()
-        {
-            var _this = $(this).parents('tr');
-            $('.e_id').val(_this.find('.id').text());
+            $('#leader_id').val($(this).find(':selected').data('leader_id'));
+            $('#email').val($(this).find(':selected').data('email'));
         });
     </script>
     @endsection
