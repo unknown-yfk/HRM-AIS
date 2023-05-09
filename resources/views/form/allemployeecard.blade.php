@@ -103,7 +103,7 @@
                                                 <option value="{{ $user->name }}" data-employee_id={{ $user->user_id }} data-email={{ $user->email }}>{{ $user->name }}</option>
                                             @endforeach
                                         </select>
-                                        <!-- <input class="form-control" type="text" id="name" name="name" placeholder="Full Name"> -->
+                                        <input class="form-control" type="text" id="employee_id" name="employee_id" placeholder="Full Name">
                                     </div>
                                 </div>
                             

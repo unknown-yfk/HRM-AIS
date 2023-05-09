@@ -10,6 +10,7 @@ use App\Models\department;
 use App\Models\designation;
 use App\Models\User;
 use App\Models\module_permission;
+use App\Models\Projects;
 
 class EmployeeController extends Controller
 {
@@ -533,15 +534,72 @@ class EmployeeController extends Controller
 
         public function projectsIndex() 
         {
-
-            return view('form.projects');
+       
+            $projects = DB::table('projects')
+            ->join('users', 'users.user_id', '=', 'projects.leader_id')
+            ->select('projects.*', 'users.avatar','users.user_id')
+            ->get();
+            $userList = DB::table('users')->get();
+            
+            return view('form.projects',compact( 'projects','userList'));
 
         }
 
 
+        
+        public function saveRecordsProjects(Request $request)
+        {
+    
+            $request->validate([
+
+                
+                'project_name'     =>    'required|string|max:255',
+                'project_leader'   =>    'required|string|max:255',
+                'deadline'         =>    'required|string|max:255',
+                'status'           =>    'required|string|max:255',
+                'description'      =>    'required|string|max:255',
+              
+
+                
+            ]);
+    
+            DB::beginTransaction();
+        
+              
+            try {
+
+                $projects = Projects::where('project_name',$request->projects)->first();
+               
+                if ($projects === null)
+                {
+                $projects = new Projects;
+
+                $projects->leader_id       = $request->leader_id;
+                $projects->project_name    = $request->project_name;
+                $projects->project_leader  = $request->project_leader;
+                $projects->deadline        = $request->deadline;
+                $projects->status          = $request->status;
+                $projects->description     = $request->description;
+                $projects->save();
+                
+                
+                DB::commit();
+                Toastr::success('Create new Project successfully :)','Success');
+                return redirect()->back();
+            } else {
+                DB::rollback();
+                Toastr::error('Add new Project exits :)','Error');
+                return redirect()->back();
+            }
+            } catch(\Exception $e) {
+                DB::rollback();
+                Toastr::error('Add Project fail :)','Error');
+                return redirect()->back();
+            }
+        }
 
         
-
+    
 
 
 

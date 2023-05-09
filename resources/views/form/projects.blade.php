@@ -1,7 +1,7 @@
 
 @extends('layouts.master')
 @section('content')
-   
+
     <!-- Page Wrapper -->
     <div class="page-wrapper">
         <!-- Page Content -->
@@ -102,38 +102,44 @@
                             @csrf
                             <div class="form-group">
                                         <label class="col-form-label">Project Name <span class="text-danger">*</span></label>
-                                        <input class="form-control" type="text" id="project" name="project" placeholder="Project Name">
+                                      
+                                        <input class="form-control @error('designation') is-invalid @enderror" type="text" id="project_name" name="project_name" placeholder="Project Name">
+                                        @error('project_name')
+                                        <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                                    @enderror
                                     </div>
+
                             <div class="form-group">
                                 <label>Project Leader <span class="text-danger">*</span></label>
-                                <select class="select" id="leaveType" name="leave_type">
-                                    <option selected disabled>Select Employee</option>
-                                    <option value="Casual Leave 12 Days">john doe</option>
-                                    <option value="Medical Leave">mike doe</option>
-                                    <option value="Loss of Pay">sam</option>
-                                </select>
+                                <select class="select" id="project_leader" name="project_leader" @error('project_leader') is-invalid @enderror>
+                                          <option selected disable> Select Leader</option>
+                                            @foreach ($userList as $key=>$user )
+                                                <option value="{{ $user->name }}" data-leader_id={{ $user->user_id }}>{{ $user->name }}</option>
+                                                @endforeach
+                                </select>   
+                                
                             </div>
-                            <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ Auth::user()->user_id }}">
+                            <input type="text" class="form-control" id="leader_id" name="leader_id" readonly>
                         
                             <div class="form-group">
                                 <label>Deadline <span class="text-danger">*</span></label>
                                 <div class="cal-icon">
-                                    <input type="text" class="form-control datetimepicker" id="to_date" name="to_date">
+                                    <input type="text" class="form-control datetimepicker" id="deadline" name="deadline">
                                 </div>
                             </div>
                             <div class="form-group">
                             <label>Status <span class="text-danger">*</span></label>
-                                <select class="select" name="status" id="status">
-                                    <option selected disabled> --Select --</option>
-                                    <option value="Completed">New</option>
-                                    <option value="Completed">Active</option>
-                                    <option value="Completed">Pending</option>
-                                    <option value="Completed">Completed</option>
-                                </select>
+                                     <select class="select" name="status" id="status">
+                                        <option selected disabled> --Select --</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
+                                    </select>
                                 </div>
                             <div class="form-group">
                                 <label>Description <span class="text-danger">*</span></label>
-                                <textarea rows="4" class="form-control" id="leave_reason" name="leave_reason"></textarea>
+                                <textarea rows="4" class="form-control" id="description" name="description"></textarea>
                             </div>
                             <div class="submit-section">
                                 <button type="submit" class="btn btn-primary submit-btn">Submit</button>
