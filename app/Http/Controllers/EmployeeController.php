@@ -553,7 +553,7 @@ class EmployeeController extends Controller
     
             $request->validate([
 
-                'leader_id'     =>      'required|string|max:255',
+                'leader_id'        =>    'required|string|max:255',
                 'project_name'     =>    'required|string|max:255',
                 'project_leader'   =>    'required|string|max:255',
                 'deadline'         =>    'required|string|max:255',
@@ -602,7 +602,7 @@ class EmployeeController extends Controller
         {
         /** update record projects */
         DB::beginTransaction();
-        
+
         try{
 
             // update table projects
@@ -616,6 +616,7 @@ class EmployeeController extends Controller
                 'description'=>$request->description, 
             ];
 
+            // dd($projects);
            
             Projects::where('id',$request->id)->update($projects);
      
@@ -634,8 +635,7 @@ class EmployeeController extends Controller
      public function deleteRecordProjects(Request $request) 
      {
          try {
-
-            Projects::destroy($request->id);
+             Projects::destroy($request->id);
              Toastr::success('Projects deleted successfully :)','Success');
              return redirect()->back();
          

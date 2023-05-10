@@ -87,8 +87,6 @@
                                                     <span class="statuss">N/A</span>
                                                 </a>
                                             @endif
-                                        
-
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a>
                                                         <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a>
@@ -200,7 +198,7 @@
                     <div class="modal-body">
                     <form action="{{ route('form/projects/update') }}" method="POST">
                             @csrf
-                                <input hidden  type="text" name="id" id="e_id" value="">
+                                <input  type="text" name="id" id="e_id" value="">
                             <div class="form-group">
                                         <label class="col-form-label">Project Name <span class="text-danger">*</span></label>
                                         <input class="form-control @error('project_name') is-invalid @enderror" type="text" id="project_name_edit" name="project_name" placeholder="Project Name">
@@ -298,8 +296,6 @@
             $('#edit_leader_id').val($(this).find(':selected').data('edit_leader_id'));
        
         });
-
-       
 
     </script>
 
