@@ -43,7 +43,6 @@
                             
                             @foreach ($users as $key=>$items )
                                 <tr>
-
                                     <td>{{ ++$key }}</td>
                                     <td hidden class="id">{{ $items->id }}</td>
                                     <td hidden class="e_leader_id">{{ $items->user_id }}</td>
@@ -61,41 +60,16 @@
                                     <td class="deadline">{{ $items->deadline }}</td>
                                     <td class="text-center">
                                                 <div class="dropdown action-label">
-                                            @if ($items->status=='New')
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                <i class="fa fa-dot-circle-o text-purple"></i>
-                                                    <span class="statuss">{{ $items->status }}</span>
-                                                </a>
-                                                @elseif ($items->status=='Pending')
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-info"></i>
-                                                    <span class="statuss">{{ $items->status }}</span>
-                                                </a>
-                                                @elseif ($items->status=='Completed')
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-success"></i>
-                                                    <span class="statuss">{{ $items->status }}</span>
-                                                </a>
-                                                @elseif ($items->status=='Declined')
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-danger"></i>
-                                                    <span class="statuss">{{ $items->status }}</span>
-                                                </a>
-                                                @elseif ($items->status=='')
-                                                <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
-                                                    <i class="fa fa-dot-circle-o text-dark"></i>
-                                                    <span class="statuss">N/A</span>
-                                                </a>
-                                            @endif
-                                        
-
+                                                    <a class="btn btn-white btn-sm btn-rounded dropdown-toggle" href="#" data-toggle="dropdown" aria-expanded="false">
+                                                        <i class="fa fa-dot-circle-o text-purple"></i> New
+                                                    </a>
                                                     <div class="dropdown-menu dropdown-menu-right">
                                                         <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-purple"></i> New</a>
                                                         <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-info"></i> Pending</a>
                                                         <a class="dropdown-item" href="#" data-toggle="modal" data-target="#approve_leave"><i class="fa fa-dot-circle-o text-success"></i> Completed</a>
                                                         <a class="dropdown-item" href="#"><i class="fa fa-dot-circle-o text-danger"></i> Declined</a>
                                                     </div>
-                                        </div>
+                                                </div>
                                             </td>
                                     <td class="text-right">
                                     <div class="dropdown dropdown-action">
@@ -166,10 +140,8 @@
                             <label>Status <span class="text-danger">*</span></label>
                                      <select class="select" name="status" id="status">
                                         <option selected disabled> --Select --</option>
-                                            <option value="Active">New</option>
-                                            <option value="Pending">Pending</option>
-                                            <option value="Completed">Completed</option>
-                                            <option value="Declined">Declined</option>
+                                            <option value="Active">Active</option>
+                                            <option value="Inactive">Inactive</option>
                                     </select>
                                 </div>
                             <div class="form-group">
@@ -279,33 +251,22 @@
 
     <!-- /Page Wrapper -->
     @section('script')
-  
-      <script>
+   
+            {{-- select js --}}
+            <script>
 
-          // toogle save leader id
+            $('#project_leader').on('change',function()
+                {
+                    $('#leader_id').val($(this).find(':selected').data('leader_id'));
+                
+                });
+            </script>
 
-    $('#project_leader').on('change',function()
-        {
-            $('#leader_id').val($(this).find(':selected').data('leader_id'));
-       
-        });
 
-
-        // toogle edit leader id
-
-        $('#e_project_leader').on('change',function()
-        {
-            $('#edit_leader_id').val($(this).find(':selected').data('edit_leader_id'));
-       
-        });
-
-       
-
-    </script>
 
         {{-- update js --}}
         <script>
-        // select auto id
+        // select auto id and email
         $(document).on('click','.edit_projects',function()
         {
             var _this = $(this).parents('tr');
@@ -318,9 +279,9 @@
             $( _option).appendTo("#e_project_leader");
 
             $('#deadline_edit').val(_this.find('.deadline').text());
-
         });
     </script>
+
 
     {{-- delete model --}}
     <script>

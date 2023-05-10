@@ -45,7 +45,7 @@
                                 <td>{{ ++$key }}</td>
                                 <td hidden  class="id">{{ $items->id }}</td>
                                 <td class="designations">{{ $items->designation }}</td>
-                                    <td class="department">{{ $items->department }}</td>
+                                <td class="department">{{ $items->department }}</td>
                                     <td class="text-right">
                                     <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
@@ -127,14 +127,14 @@
                     <div class="modal-body">
                     <form action="{{ route('form/designations/update') }}" method="POST">
                     @csrf
-                            <input hidden type="text" name="id" id="e_id" value="">
+                            <input type="text" name="id" id="e_id" value="">
                             <div class="form-group">
                                 <label>Designation Name <span class="text-danger">*</span></label>
                                 <input class="form-control" value="" type="text" id="designation_edit" name="designation">
                             </div>
                             <div class="form-group">
                                 <label>Department <span class="text-danger">*</span></label>
-                                 <select class="select" name="department" id="e_department">
+                                    <select class="select" name="department" id="e_department">
                                         @foreach ($department as $departments )
                                         <option value="{{ $departments->department }}">{{ $departments->department }}</option>
                                         @endforeach

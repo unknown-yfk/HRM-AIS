@@ -546,18 +546,6 @@ class EmployeeController extends Controller
 
         }
 
-
-
-
-
-
-
-
-
-
-
-
-
         
         public function saveRecordsProjects(Request $request)
         
@@ -571,14 +559,11 @@ class EmployeeController extends Controller
                 'deadline'         =>    'required|string|max:255',
                 'status'           =>    'required|string|max:255',
                 'description'      =>    'required|string|max:255',
-              
-
-                
+            
             ]);
     
             DB::beginTransaction();
         
-              
             try {
 
                 $projects = Projects::where('project_name', '=',$request->project_name)->first();
@@ -601,7 +586,7 @@ class EmployeeController extends Controller
                 return redirect()->back();
             } else {
                 DB::rollback();
-                Toastr::error('Add new Project exits :)','Error');
+                Toastr::error('Add new Project exists :)','Error');
                 return redirect()->back();
             }
             } catch(\Exception $e) {
@@ -611,15 +596,56 @@ class EmployeeController extends Controller
             }
         }
 
-        
     
 
+        public function updateRecordProjects(Request $request)
+        {
+        /** update record projects */
+        DB::beginTransaction();
+        
+        try{
 
+            // update table projects
+            $projects = [
+                'id'=>$request->id,   
+                'leader_id'=>$request->leader_id,
+                'project_name'=>$request->project_name,
+                'project_leader'=>$request->project_leader,
+                'deadline'=>$request->deadline,
+                'status'=>$request->status,
+                'description'=>$request->description, 
+            ];
 
+           
+            Projects::where('id',$request->id)->update($projects);
+     
+            DB::commit();
+            Toastr::success('updated record successfully :)','Success');
+            return redirect()->route('form/projects/page');
+        } catch(\Exception $e) {
+            DB::rollback();
+            Toastr::error('updated record fail :)','Error');
+            return redirect()->back();
+        }
+    
+        }
 
+     /** delete record designations */
+     public function deleteRecordProjects(Request $request) 
+     {
+         try {
 
-
-
+            Projects::destroy($request->id);
+             Toastr::success('Projects deleted successfully :)','Success');
+             return redirect()->back();
+         
+         } catch(\Exception $e) {
+ 
+             DB::rollback();
+             Toastr::error('Projects delete fail :)','Error');
+             return redirect()->back();
+         }
+     }
 
 
     /** page time sheet */
