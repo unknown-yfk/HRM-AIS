@@ -201,7 +201,7 @@
                                 <input  type="text" name="id" id="e_id" value="">
                             <div class="form-group">
                                         <label class="col-form-label">Project Name <span class="text-danger">*</span></label>
-                                        <input class="form-control @error('project_name') is-invalid @enderror" type="text" id="project_name_edit" name="project_name" placeholder="Project Name">
+                                        <input class="form-control" type="text" id="project_name_edit" name="project_name" placeholder="Project Name">
                                     </div>
                             <div class="form-group">
                                 <label>Project Leader <span class="text-danger">*</span></label>

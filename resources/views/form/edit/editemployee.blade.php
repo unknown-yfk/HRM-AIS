@@ -33,7 +33,7 @@
                                 <div class="form-group row">
                                     <label class="col-form-label col-md-2">Full Name</label>
                                     <div class="col-md-10">
-                                        <input type="text" class="form-control" id="name" name="name" value="{{ $employees[0]->name }}">
+                                        <input type="text" class="form-control" id="name" name="name">
                                     </div>
                                 </div>
                                 <div class="form-group row">

@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('designations', function (Blueprint $table) {
             $table->id();
             $table->string('designation')->nullable();
+            $table->string('department')->nullable();
             $table->timestamps();
         });
         DB::table('designations')->insert([

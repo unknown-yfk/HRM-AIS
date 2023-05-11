@@ -144,7 +144,7 @@ class EmployeeController extends Controller
                 ];
                 module_permission::where('id',$request->id_permission[$i])->update($UpdateModule_permissions);
             }
-
+            
             User::where('id',$request->id)->update($updateUser);
             Employee::where('id',$request->id)->update($updateEmployee);
         
@@ -535,11 +535,10 @@ class EmployeeController extends Controller
         public function projectsIndex() 
         {
        
-            $users = DB::table('users')
+            $users = DB::table('projects')
            
-            ->join('projects', 'users.user_id', '=', 'projects.leader_id')
-            ->select('users.*', 'projects.project_name', 'projects.project_leader', 'projects.description','projects.deadline'
-            ,'projects.status')
+            ->join('users', 'users.user_id', '=', 'projects.leader_id')
+            ->select('projects.*', 'users.avatar','users.user_id')
             ->get();
             $userList = DB::table('users')->get();
             
@@ -547,7 +546,7 @@ class EmployeeController extends Controller
             
 
         }
-
+        
       
         public function saveRecordsProjects(Request $request)
         
@@ -609,6 +608,7 @@ class EmployeeController extends Controller
 
             // update table projects
             $projects = [
+                
                 'id'=>$request->id,   
                 'leader_id'=>$request->leader_id,
                 'project_name'=>$request->project_name,
@@ -618,14 +618,10 @@ class EmployeeController extends Controller
                 'description'=>$request->description, 
             ];
 
-            dd($projects);
-           
-            Projects::where('id',$request->id)
-            ->update($projects);
-
-
         
-     
+           
+            Projects::where('id',$request->id)->update($projects);
+
             DB::commit();
             Toastr::success('updated record successfully :)','Success');
             return redirect()->route('form/projects/page');
