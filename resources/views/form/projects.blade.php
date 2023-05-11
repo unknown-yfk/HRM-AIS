@@ -144,12 +144,12 @@
 
                             <div class="form-group">
                                 <label>Project Leader <span class="text-danger">*</span></label>
-                                <select class="select" id="project_leader" name="project_leader" @error('project_leader') is-invalid @enderror>
+                                        <select class="select" id="project_leader" name="project_leader" @error('project_leader') is-invalid @enderror>
                                           <option selected disable> Select Leader</option>
                                             @foreach ($userList as $key=>$user )
                                                 <option value="{{ $user->name }}" data-leader_id={{ $user->user_id }}>{{ $user->name }}</option>
                                                 @endforeach
-                                </select>   
+                                        </select>   
                                 
                             </div>
                             <input type="hidden" class="form-control" id="leader_id" name="leader_id" readonly>
@@ -198,7 +198,7 @@
                     <div class="modal-body">
                     <form action="{{ route('form/projects/update') }}" method="POST">
                             @csrf
-                                <input  type="text" name="id" id="e_id" value="">
+                                <input  type="hidden" name="id" id="e_id" value="">
                             <div class="form-group">
                                         <label class="col-form-label">Project Name <span class="text-danger">*</span></label>
                                         <input class="form-control @error('project_name') is-invalid @enderror" type="text" id="project_name_edit" name="project_name" placeholder="Project Name">
@@ -212,7 +212,7 @@
                                         @endforeach
                                 </select>  
                             </div>
-                            <input type="text" class="form-control" id="edit_leader_id" name="leader_id" readonly>
+                            <input type="hidden" class="form-control" id="edit_leader_id" name="leader_id" readonly>
                             <input type="hidden" class="form-control" id="user_id" name="user_id" value="{{ Auth::user()->user_id }}">
                         
                             <div class="form-group">

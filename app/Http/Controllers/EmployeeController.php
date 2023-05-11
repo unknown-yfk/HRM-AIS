@@ -11,6 +11,7 @@ use App\Models\designation;
 use App\Models\User;
 use App\Models\module_permission;
 use App\Models\Projects;
+use App\Models\Timesheet;
 
 class EmployeeController extends Controller
 {
@@ -446,8 +447,9 @@ class EmployeeController extends Controller
     {
 
         $request->validate([
+
             'designation'  => 'required|string|max:255',
-            'department'=> 'required|string|max:255'
+            'department'   => 'required|string|max:255'
             
         ]);
 
@@ -527,22 +529,19 @@ class EmployeeController extends Controller
 
 
 
-
-
-
         /** page projects */
 
         public function projectsIndex() 
         {
-       
-            $users = DB::table('users')
-            ->join('projects', 'users.user_id', '=', 'projects.leader_id')
-            ->select('users.*', 'projects.project_name', 'projects.project_leader', 'projects.description','projects.deadline'
-            ,'projects.status')
+    
+            $users = DB::table('projects')
+           
+            ->join('users', 'users.user_id', '=', 'projects.leader_id')
+            ->select('projects.*', 'users.avatar','users.user_id')
             ->get();
             $userList = DB::table('users')->get();
             
-            return view('form.projects',compact( 'users','userList'));
+            return view('form.projects',compact('userList','users'));
 
         }
 
@@ -648,15 +647,83 @@ class EmployeeController extends Controller
      }
 
 
-    /** page time sheet */
-    public function timeSheetIndex()
-    {
+  
+   
 
 
-        return view('form.timesheet');
 
 
+
+
+
+
+ /** page time sheet */
+
+ public function timeSheetIndex()
+ {
+
+     $timesheet  = DB::table('timesheet')->get();
+     $project    = DB::table('projects')->get();
+    
+ 
+     return view('form.timesheet',compact('project','timesheet'));
+
+ 
     }
+
+ public function saveRecordTimeSheets(Request $request)
+ {
+
+     $request->validate([
+
+
+        'project_name'     =>    'required|string|max:255',
+        'deadline'         =>    'required|string|max:255',
+        'total_hrs'        =>    'required|string|max:255',
+        'remaining_hrs'    =>    'required|string|max:255',
+        'reg_date'         =>    'required|string|max:255',
+        'hours'            =>    'required|string|max:255',
+        'description'      =>    'required|string|max:255'
+         
+     ]);
+
+     DB::beginTransaction();
+     
+     try{
+
+         $timesheets = Timesheet::where('project_name', '=',$request->project_name)->first();
+
+            if ($timesheets === null)
+            {
+            $timesheets = new Timesheet;
+
+            $timesheets->project_name    = $request->project_name;
+            $timesheets->deadline        = $request->deadline;
+            $timesheets->total_hrs       = $request->total_hrs;
+            $timesheets->remaining_hrs   = $request->remaining_hrs;
+            $timesheets->reg_date        = $request->reg_date;
+            $timesheets->hours           = $request->hours;
+            $timesheets->description     = $request->description;
+            
+             $timesheets->save();
+            
+             DB::commit();
+            Toastr::success('Create new Timesheet successfully :)','Success');
+            return redirect()->back();
+        } else {
+            DB::rollback();
+            Toastr::error('Add new Timesheet exists :)','Error');
+            return redirect()->back();
+        }
+        } catch(\Exception $e) {
+            DB::rollback();
+            Toastr::error('Add Timesheet fail :)','Error');
+            return redirect()->back();
+        }
+ }
+
+
+
 
     /** page overtime */
     public function overTimeIndex()

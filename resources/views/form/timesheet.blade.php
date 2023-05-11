@@ -22,8 +22,8 @@
                     </div>
                 </div>
             </div>
-            <!-- /Page Header -->
-            
+             <!-- /Page Header -->
+             {!! Toastr::message() !!}
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
@@ -39,11 +39,7 @@
                                     <th class="text-right">Actions</th>
                                 </tr>
                             </thead>
-                            <tbody>
-                               
-                            
-                               
-                               
+                            <tbody> 
                                 <tr>
                                     <td>
                                         <h2 class="table-avatar">
@@ -88,47 +84,52 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
+                    <form action="{{ route('form/timesheet/save') }}" method="POST">
+                       @csrf
                             <div class="row">
                                 <div class="form-group col-sm-6">
+                                    <div class="form-group">
                                     <label>Project <span class="text-danger">*</span></label>
-                                    <select class="select">
-                                        <option>Office Management</option>
-                                   
-                                    </select>
+                                <select class="select" name="project_name" id="project_name">
+                                        <option selected disabled> --Select --</option>
+                                        @foreach ($project as $pro )
+                                        <option value="{{ $pro->project_name }}">{{ $pro->project_name }}</option>
+                                        @endforeach
+                                    </select> 
+                            </div>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-4">
                                     <label>Deadline <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input class="form-control" type="text" value="5 May 2019" readonly>
+                                        <input class="form-control" value="{{ $pro->deadline }}" type="text" name="deadline" id="deadline" readonly>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Total Hours <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" value="100" readonly>
+                                    <input class="form-control" type="text" name="total_hrs" id="total_hrs">
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Remaining Hours <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" value="60" readonly>
+                                    <input class="form-control" type="text" name="remaining_hrs" id="remaining_hrs">
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-6">
                                     <label>Date <span class="text-danger">*</span></label>
                                     <div class="cal-icon">
-                                        <input class="form-control datetimepicker" type="text">
+                                        <input class="form-control datetimepicker" name="reg_date" id="reg_date" type="text">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-6">
                                     <label>Hours <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" name="hours" id="hours">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Description <span class="text-danger">*</span></label>
-                                <textarea rows="4" class="form-control"></textarea>
+                                <textarea rows="4" type="text" class="form-control" name="description" id="description"></textarea>
                             </div>
                             <div class="submit-section">
                                 <button class="btn btn-primary submit-btn">Submit</button>
@@ -234,6 +235,17 @@
     <!-- /Page Wrapper -->
 
     @section('script')
-    
+        <script>
+
+        // toogle save leader id
+
+        $('#project').on('change',function()
+        {
+        $('#project').val($(this).find(':selected').data('leader_id'));
+
+        });
+
+
+        </script>
     @endsection
 @endsection

@@ -127,7 +127,7 @@
                     <div class="modal-body">
                     <form action="{{ route('form/designations/update') }}" method="POST">
                     @csrf
-                            <input type="text" name="id" id="e_id" value="">
+                            <input type="hidden" name="id" id="e_id" value="">
                             <div class="form-group">
                                 <label>Designation Name <span class="text-danger">*</span></label>
                                 <input class="form-control" value="" type="text" id="designation_edit" name="designation">
