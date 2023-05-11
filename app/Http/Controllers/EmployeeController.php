@@ -447,7 +447,7 @@ class EmployeeController extends Controller
 
         $request->validate([
             'designation'  => 'required|string|max:255',
-            'department'=> 'required|string|max:255'
+            'department'   =>  'required|string|max:255'
             
         ]);
 
@@ -536,17 +536,19 @@ class EmployeeController extends Controller
         {
        
             $users = DB::table('users')
+           
             ->join('projects', 'users.user_id', '=', 'projects.leader_id')
             ->select('users.*', 'projects.project_name', 'projects.project_leader', 'projects.description','projects.deadline'
             ,'projects.status')
             ->get();
             $userList = DB::table('users')->get();
             
-            return view('form.projects',compact( 'users','userList'));
+            return view('form.projects',compact('userList','users'));
+            
 
         }
 
-        
+      
         public function saveRecordsProjects(Request $request)
         
         {
@@ -616,9 +618,13 @@ class EmployeeController extends Controller
                 'description'=>$request->description, 
             ];
 
-            // dd($projects);
+            dd($projects);
            
-            Projects::where('id',$request->id)->update($projects);
+            Projects::where('id',$request->id)
+            ->update($projects);
+
+
+        
      
             DB::commit();
             Toastr::success('updated record successfully :)','Success');

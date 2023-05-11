@@ -146,7 +146,7 @@
                                 <label>Project Leader <span class="text-danger">*</span></label>
                                 <select class="select" id="project_leader" name="project_leader" @error('project_leader') is-invalid @enderror>
                                           <option selected disable> Select Leader</option>
-                                            @foreach ($userList as $key=>$user )
+                                               @foreach ($userList as $key=>$user )
                                                 <option value="{{ $user->name }}" data-leader_id={{ $user->user_id }}>{{ $user->name }}</option>
                                                 @endforeach
                                 </select>   
