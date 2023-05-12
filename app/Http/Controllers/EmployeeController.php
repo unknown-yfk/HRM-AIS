@@ -12,6 +12,9 @@ use App\Models\User;
 use App\Models\module_permission;
 use App\Models\Projects;
 use App\Models\Timesheet;
+use App\Models\Overtime;
+
+
 
 class EmployeeController extends Controller
 {
@@ -495,6 +498,7 @@ class EmployeeController extends Controller
         $designation = [
             'id'=>$request->id,
             'designation'=>$request->designation,
+            'department'=>$request->department,
         ];
 
         designation::where('id',$request->id)->update($designation);
@@ -648,23 +652,14 @@ class EmployeeController extends Controller
 
 
   
-   
-
-
-
-
-
-
-
-
  /** page time sheet */
 
  public function timeSheetIndex()
  {
 
-     $timesheet  = DB::table('timesheet')->get();
+     $timesheet  = DB::table('timesheets')->get();
      $project    = DB::table('projects')->get();
-    
+        
  
      return view('form.timesheet',compact('project','timesheet'));
 
@@ -682,7 +677,7 @@ class EmployeeController extends Controller
         'total_hrs'        =>    'required|string|max:255',
         'remaining_hrs'    =>    'required|string|max:255',
         'reg_date'         =>    'required|string|max:255',
-        'hours'            =>    'required|string|max:255',
+        'assigned_hours'   =>    'required|string|max:255',
         'description'      =>    'required|string|max:255'
          
      ]);
@@ -693,6 +688,7 @@ class EmployeeController extends Controller
 
          $timesheets = Timesheet::where('project_name', '=',$request->project_name)->first();
 
+
             if ($timesheets === null)
             {
             $timesheets = new Timesheet;
@@ -702,7 +698,7 @@ class EmployeeController extends Controller
             $timesheets->total_hrs       = $request->total_hrs;
             $timesheets->remaining_hrs   = $request->remaining_hrs;
             $timesheets->reg_date        = $request->reg_date;
-            $timesheets->hours           = $request->hours;
+            $timesheets->assigned_hours  = $request->assigned_hours;
             $timesheets->description     = $request->description;
             
              $timesheets->save();
@@ -715,20 +711,202 @@ class EmployeeController extends Controller
             Toastr::error('Add new Timesheet exists :)','Error');
             return redirect()->back();
         }
-        } catch(\Exception $e) {
+        } catch(Exception $e) {
             DB::rollback();
             Toastr::error('Add Timesheet fail :)','Error');
             return redirect()->back();
+            throw new Exception;
         }
  }
 
 
 
 
+
+        public function updateRecordTimeSheets(Request $request)
+        {
+
+            /** update record timesheet */
+        DB::beginTransaction();
+
+        try{
+
+            // update table timesheet
+            $timesheet = [
+                'id'=>$request->id,  
+                'project_name'=>$request->project_name,   
+                'deadline'=>$request->deadline,
+                'total_hrs'=>$request->total_hrs,
+                'remaining_hrs'=>$request->remaining_hrs,
+                'reg_date'=>$request->reg_date,
+                'assigned_hours'=>$request->assigned_hours,
+                'description'=>$request->description, 
+                
+            ];
+
+            // dd($projects);
+           
+            Timesheet::where('id',$request->id)->update($timesheet);
+     
+            DB::commit();
+            Toastr::success('updated record successfully :)','Success');
+            return redirect()->route('form/timesheet/page');
+        } catch(\Exception $e) {
+            DB::rollback();
+            Toastr::error('updated record fail :)','Error');
+            return redirect()->back();
+        }
+    
+            return redirect()->back();
+
+        }
+ 
+
+
+    /** delete record designations */
+    public function deleteRecordTimeSheets(Request $request) 
+    {
+        try {
+            Timesheet::destroy($request->id);
+            Toastr::success('Timesheet deleted successfully :)','Success');
+            return redirect()->back();
+        
+        } catch(\Exception $e) {
+
+            DB::rollback();
+            Toastr::error('Timesheet delete fail :)','Error');
+            return redirect()->back();
+        }
+    }
+
     /** page overtime */
     public function overTimeIndex()
     {
-        return view('form.overtime');
+
+        $ot = DB::table('overtimes')
+
+        ->join('users', 'users.user_id', '=', 'overtimes.ot_id')
+        ->select('overtimes.*', 'users.avatar', 'users.name','users.user_id')
+        ->get();
+        $empList = DB::table('users')->get();
+        
+        return view('form.overtime',compact('ot','empList'));
+
     }
+
+    public function saveRecordOverTime(Request $request)
+    {
+   
+        $request->validate([
+   
+
+           'ot_id'           =>    'required|string|max:255',
+           'ot_employee'     =>    'required|string|max:255',
+           'ot_date'         =>    'required|string|max:255',
+           'ot_hours'        =>    'required|string|max:255',
+           'description'     =>    'required|string|max:255',
+            
+        ]);
+   
+        DB::beginTransaction();
+        
+        try{
+   
+            $overtime = Overtime::where('ot_id', '=',$request->ot_id)->first();
+   
+   
+               if ($overtime === null)
+               {
+               $overtime = new Overtime;
+   
+               $overtime->ot_id           = $request->ot_id;
+               $overtime->ot_employee     = $request->ot_employee;
+               $overtime->ot_date         = $request->ot_date;
+               $overtime->ot_hours        = $request->ot_hours;
+               $overtime->description     = $request->description;
+
+               
+                $overtime->save();
+               
+                DB::commit();
+               Toastr::success('Create new Overtime successfully :)','Success');
+               return redirect()->back();
+           } else {
+               DB::rollback();
+               Toastr::error('Add new Overtime exists :)','Error');
+               return redirect()->back();
+           }
+           } catch(Exception $e) {
+               DB::rollback();
+            //    Toastr::error('Add Overtime fail :)','Error');
+               return redirect()->back();
+               throw new Exception;
+           }
+    }
+   
+
+
+
+
+
+
+
+    public function updateRecordOverTime(Request $request)
+    {
+
+        /** update record Overtime */
+    DB::beginTransaction();
+
+    try{
+
+        // update table Overtime
+        $overtime = [
+
+            'id'=>$request->id,  
+            'ot_id'=>$request->ot_id,   
+            'ot_employee'=>$request->ot_employee,
+            'ot_date'=>$request->ot_date,
+            'ot_hours'=>$request->ot_hours,
+            'description'=>$request->description, 
+
+            
+        ];
+
+        // dd($projects);
+       
+        Overtime::where('id',$request->id)->update($overtime);
+ 
+        DB::commit();
+        Toastr::success('updated record successfully :)','Success');
+        return redirect()->route('form/overtime/page');
+    } catch(\Exception $e) {
+        DB::rollback();
+        Toastr::error('updated record fail :)','Error');
+        return redirect()->back();
+    }
+
+        return redirect()->back();
+
+    }
+
+
+
+/** delete record designations */
+public function deleteRecordOverTime(Request $request) 
+{
+    try {
+        Overtime::destroy($request->id);
+        Toastr::success('Overtime deleted successfully :)','Success');
+        return redirect()->back();
+    
+    } catch(\Exception $e) {
+
+        DB::rollback();
+        Toastr::error('Overtime delete fail :)','Error');
+        return redirect()->back();
+    }
+}
+
+
 
 }

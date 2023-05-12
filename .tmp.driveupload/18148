@@ -1,0 +1,4 @@
+0000000000000000000000000000000000000000 8558e514cbf7f6ba49a41153945715986e85a2ba Abreham Kemachew <abrehamkemachew@Abrehams-MacBook-Pro.local> 1683699063 +0300	branch: Created from origin/main
+8558e514cbf7f6ba49a41153945715986e85a2ba 162b70394e03706cff6b91719f3f35e331bdf28d Abreham Kemachew <abrehamkemachew@Abrehams-MacBook-Pro.local> 1683718035 +0300	commit: projects functionality added
+162b70394e03706cff6b91719f3f35e331bdf28d e2a9f0e93381e6f738dfaa003096860b81d065cf Abreham Kemachew <abrehamkemachew@Abrehams-MacBook-Pro.local> 1683724587 +0300	commit: project crud done
+e2a9f0e93381e6f738dfaa003096860b81d065cf 2f891d825f31ef4d04316d4738e67e1c073c517b Abreham Kemachew <abrehamkemachew@Abrehams-MacBook-Pro.local> 1683805969 +0300	commit: projects complete and timesheet functionality added
