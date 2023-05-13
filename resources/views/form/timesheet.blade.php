@@ -112,11 +112,11 @@
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Total Hours <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="total_hrs" id="total_hrs">
+                                    <input class="form-control" type="text" readonly value="730" name="total_hrs" id="total_hrs">
                                 </div>
                                 <div class="form-group col-sm-4">
                                     <label>Remaining Hours <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="remaining_hrs" id="remaining_hrs">
+                                    <input class="form-control" type="text" readonly value="500" name="remaining_hrs" id="remaining_hrs">
                                 </div>
                             </div>
                             <div class="row">

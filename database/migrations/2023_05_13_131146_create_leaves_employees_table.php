@@ -13,19 +13,19 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('leaves_emploloyee', function (Blueprint $table) {
+        Schema::create('leaves_employees', function (Blueprint $table) {
             $table->id();
             $table->string('employee_id')->nullable();
             $table->string('leave_type')->nullable();
             $table->string('from_date')->nullable();
             $table->string('to_date')->nullable();
-            $table->string('rem_leaves')->nullable();
             $table->string('day')->nullable();
+            $table->string('rem_leaves')->nullable();
             $table->string('leave_reason')->nullable();
             $table->timestamps();
         });
     }
-
+  
     /**
      * Reverse the migrations.
      *
@@ -33,6 +33,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leaves_emploloyee');
+        Schema::dropIfExists('leaves_employees');
     }
 };

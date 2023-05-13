@@ -125,21 +125,6 @@ class LeavesController extends Controller
     }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
     // leaves Employee
     public function leavesEmployee()
     {
@@ -150,8 +135,8 @@ class LeavesController extends Controller
         ->get();
 
         return view('form.leavesemployee',compact('leaves_employee'));
-
-    }
+        
+    }   
 
  // save record
  public function saveleavesEmployee(Request $request)
@@ -159,7 +144,6 @@ class LeavesController extends Controller
      $request->validate([
 
       
-         'employee_id'  => 'required|string|max:255',
          'leave_type'   => 'required|string|max:255',
          'from_date'    => 'required|string|max:255',
          'to_date'      => 'required|string|max:255',
