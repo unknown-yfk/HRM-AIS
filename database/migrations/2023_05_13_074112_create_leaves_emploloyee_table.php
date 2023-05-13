@@ -20,6 +20,7 @@ return new class extends Migration
             $table->string('from_date')->nullable();
             $table->string('to_date')->nullable();
             $table->string('rem_leaves')->nullable();
+            $table->string('day')->nullable();
             $table->string('leave_reason')->nullable();
             $table->timestamps();
         });
