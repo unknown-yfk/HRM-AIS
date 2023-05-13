@@ -711,7 +711,7 @@ class EmployeeController extends Controller
             Toastr::error('Add new Timesheet exists :)','Error');
             return redirect()->back();
         }
-        } catch(Exception $e) {
+        } catch(\Exception $e) {
             DB::rollback();
             Toastr::error('Add Timesheet fail :)','Error');
             return redirect()->back();

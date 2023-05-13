@@ -18,7 +18,7 @@
                         </ul>
                     </div>
                     <div class="col-auto float-right ml-auto">
-                        <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_todaywork"><i class="fa fa-plus"></i> Add Today Work</a>
+                        <a href="#" class="btn add-btn add_todaywork" data-toggle="modal" data-target="#add_todaywork"><i class="fa fa-plus"></i> Add Today Work</a>
                     </div>
                 </div>
             </div>
@@ -248,7 +248,6 @@
 
     @section('script')
 
-
     <script>
 
 // toogle save leader id
@@ -260,6 +259,14 @@ $('#project_name').on('change',function()
 });
 
 </script>
+
+
+
+
+<script>
+
+    
+    </script>
 
 
   <script>
