@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Brian2694\Toastr\Facades\Toastr;
 use App\Models\LeavesAdmin;
+use App\Models\LeavesSetting;
 use DB;
 use DateTime;
 
@@ -28,6 +29,7 @@ class LeavesController extends Controller
             'from_date'    => 'required|string|max:255',
             'to_date'      => 'required|string|max:255',
             'leave_reason' => 'required|string|max:255',
+            'status' => 'required|string|max:255',
         ]);
 
         DB::beginTransaction();
@@ -45,6 +47,7 @@ class LeavesController extends Controller
             $leaves->to_date       = $request->to_date;
             $leaves->day           = $days;
             $leaves->leave_reason  = $request->leave_reason;
+            $leaves->status  = $request->status;
             $leaves->save();
             
             DB::commit();
@@ -74,9 +77,10 @@ class LeavesController extends Controller
                 'from_date'    => $request->from_date,
                 'to_date'      => $request->to_date,
                 'day'          => $days,
-                'leave_reason' => $request->leave_reason,
+                'reason' => $request->leave_reason,
+                'status' => $request->status,
             ];
-
+        //  return $request->all();
             LeavesAdmin::where('id',$request->id)->update($update);
             DB::commit();
             Toastr::success('Updated Leaves successfully :)','Success');
@@ -104,6 +108,8 @@ class LeavesController extends Controller
             return redirect()->back();
         }
     }
+
+
 
     // leaveSettings
     public function leaveSettings()

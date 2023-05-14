@@ -123,15 +123,15 @@
                                     @foreach ($leaveSettings as $leaveSetting )  
                                         <tr>
                                            
-                                            <td class="id">{{$leaveSetting->id}}</td>
-                                            <td class="name">{{$leaveSetting->name}}</td>
-                                            <td class="days">{{$leaveSetting->days}}</td>
+                                            <td>{{$leaveSetting->id}}</td>
+                                            <td class="leave_type">{{$leaveSetting->name}}</td>
+                                            <td class="leave_type">{{$leaveSetting->days}}</td>
                                             <td class="text-right">
                                                 <div class="dropdown dropdown-action">
                                                     <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                                     <div class="dropdown-menu dropdown-menu-right">
-                                                        <a class="dropdown-item updatesettings" data-toggle="modal" data-id="'.$items->id.'" data-target="#edit_leave_setting"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                        <a class="dropdown-item deletesettings" href="#" data-toggle="modal" data-target="#deletesettings"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                        <a class="dropdown-item leavesettingUpdate" data-toggle="modal" data-id="'.$items->id.'" data-target="#edit_leave_setting"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                        <a class="dropdown-item leavesettingDelete" href="#" data-toggle="modal" data-target="#delete_approve"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                                     </div>
                                                 </div>
                                             </td>
@@ -194,17 +194,17 @@
                     <div class="modal-body">
                         <form action="{{ route('form/leavesettings/update') }}" method="POST">
                             @csrf
-                            <input type="hidden" name="id" id="e_id" value="">
+                            <input type="hidden" id="id" name="id" value="">
                             <div class="form-group">
                                 <label>Name <span class="text-danger">*</span></label>
                                 <div class="cal-name">
-                                    <input type="text" class="form-control" id="settingName_edit" name="name">
+                                    <input type="text" class="form-control" id="name" name="name">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Days <span class="text-danger">*</span></label>
                                 <div class="cal-date">
-                                    <input type="number" class="form-control" id="settingday_edit" name="days">
+                                    <input type="number" class="form-control" id="days" name="days">
                                 </div>
                             </div>
                             <div class="submit-section">
@@ -216,17 +216,43 @@
             </div>
         </div>
         <!-- /Edit Leave Modal -->
-        <!-- Delete Leave Modal -->
-        <div class="modal custom-modal fade" id="deletesettings" role="dialog">
+
+        <!-- Approve Leave Modal -->
+        <div class="modal custom-modal fade" id="approve_leave" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="form-header">
-                            <h3>Delete Leave Setting</h3>
-                            <p>Are you sure want to delete?</p>
+                            <h3>Leave Approve</h3>
+                            <p>Are you sure want to approve for this leave?</p>
                         </div>
                         <div class="modal-btn delete-action">
-                            <form action="{{ route('form/leavesettings/delete') }}" method="POST">
+                            <div class="row">
+                                <div class="col-6">
+                                    <a href="javascript:void(0);" class="btn btn-primary continue-btn">Approve</a>
+                                </div>
+                                <div class="col-6">
+                                    <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Decline</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- /Approve Leave Modal -->
+        
+        <!-- Delete Leave Modal -->
+        <div class="modal custom-modal fade" id="delete_approve" role="dialog">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-body">
+                        <div class="form-header">
+                            <h3>Delete Leave</h3>
+                            <p>Are you sure want to delete this leave?</p>
+                        </div>
+                        <div class="modal-btn delete-action">
+                            <form action="{{ route('form/leaves/edit/delete') }}" method="POST">
                                 @csrf
                                 <input type="hidden" name="id" class="e_id" value="">
                                 <div class="row">
@@ -250,23 +276,24 @@
     <script>
         document.getElementById("year").innerHTML = new Date().getFullYear();
     </script>
+    {{-- update js --}}
     <script>
-        $(document).on('click','.updatesettings',function()
+        $(document).on('click','.edit_leave_setting',function()
         {
             var _this = $(this).parents('tr');
-            $('#e_id').val(_this.find('.id').text());
-            $('#settingName_edit').val(_this.find('.name').text());
-            $('#settingday_edit').val(_this.find('.days').text());  
+            $('#id').val(_this.find('.id').text());
+            $('#name').val(_this.find('.name').text());
+            $('#days').val(_this.find('.days').text());  
+            
         });
     </script>
-    <!-- delete scfript -->
+    {{-- delete model --}}
     <script>
-        $(document).on('click','.deletesettings',function()
+        $(document).on('click','.leaveDelete',function()
         {
             var _this = $(this).parents('tr');
             $('.e_id').val(_this.find('.id').text());
         });
     </script>
     @endsection
-
 @endsection

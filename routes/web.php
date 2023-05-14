@@ -24,6 +24,8 @@ use App\Http\Controllers\TrainersController;
 use App\Http\Controllers\TrainingTypeController;
 use App\Http\Controllers\SalesController;
 use App\Http\Controllers\PersonalInformationController;
+use App\Http\Controllers\LeaveSetting;
+
 
 
 /*
@@ -270,6 +272,17 @@ Route::controller(LeavesController::class)->group(function () {
     Route::get('form/shiftlist/page', 'shiftList')->middleware('auth')->name('form/shiftlist/page');    
 });
 
+
+
+Route::controller(leaveSetting::class)->group(function () {
+    // ----------------------------- form leavesetting  ------------------------------//
+    Route::get('form/leavesettings/page', 'index')->middleware('auth')->name('form/leavesettings/page');    
+    Route::post('form/leavesettings/save', 'saveRecord')->middleware('auth')->name('form/leavesettings/save');    
+    Route::post('form/leavesettings/update', 'updateRecord')->middleware('auth')->name('form/leavesettings/update');    
+    Route::post('form/leavesettings/delete', 'deleteRecord')->middleware('auth')->name('form/leavesettings/delete');  
+  });
+
+
 // ----------------------------- form payroll  ------------------------------//
 Route::controller(PayrollController::class)->group(function () {
     Route::get('form/salary/page', 'salary')->middleware('auth')->name('form/salary/page');
@@ -288,14 +301,6 @@ Route::controller(ExpenseReportsController::class)->group(function () {
     Route::get('form/leave/reports/page','leaveReport')->middleware('auth')->name('form/leave/reports/page');
 });
 
-
-Route::controller(leaveSetting::class)->group(function () {
-    // ----------------------------- form leavesetting  ------------------------------//
-    Route::get('form/leavesettings/page', 'index')->middleware('auth')->name('form/leavesettings/page');    
-    Route::post('form/leavesettings/save', 'saveRecord')->middleware('auth')->name('form/leavesettings/save');    
-    Route::post('form/leavesettings/update', 'updateRecord')->middleware('auth')->name('form/leavesettings/update');    
-    Route::post('form/leavesettings/delete', 'deleteRecord')->middleware('auth')->name('form/leavesettings/delete');  
-  });
 
 // ----------------------------- performance  ------------------------------//
 Route::controller(PerformanceController::class)->group(function () {
