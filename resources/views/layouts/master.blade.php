@@ -28,14 +28,6 @@
 	<!-- Main CSS -->
 	<link rel="stylesheet" href="{{ URL::to('assets/css/style.css') }}">
 
-
-
-
-   <link rel="stylesheet" href="{{ URL::to('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css') }}">
- 
-
-
-
 	{{-- message toastr --}}
 	<link rel="stylesheet" href="{{ URL::to('assets/css/toastr.min.css') }}">
 	<script src="{{ URL::to('assets/js/toastr_jquery.min.js') }}"></script>
@@ -252,28 +244,6 @@
 	<script src="{{ URL::to('assets/js/multiselect.min.js') }}"></script>		
 	<!-- Custom JS -->
 	<script src="{{ URL::to('assets/js/app.js') }}"></script>
-
-
-
-
-
-
-  <!-- JS -->
-  <script src="{{ URL::to('https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js')}}"></script>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 	@yield('script')
 	<center>
 	<h4><a href="https://linkalltechnology.com/">Powered By : Andinet ICT Solution.</a></h4>

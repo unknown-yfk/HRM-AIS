@@ -20,7 +20,7 @@
                     </div>
                 </div>
             </div>
-         
+            
             <!-- Leave Statistics -->
             <div class="row">
                 <div class="col-md-3">
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <!-- /Leave Statistics -->
-            {!! Toastr::message() !!}
+            
             <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive">
@@ -145,11 +145,10 @@
                         </button>
                     </div>
                     <div class="modal-body">
-                    <form action="{{ route('form/leavesemployee/save') }}" method="POST">
-                       @csrf
+                        <form>
                             <div class="form-group">
                                 <label>Leave Type <span class="text-danger">*</span></label>
-                                <select class="select" name="leave_type" id="leave_type">
+                                <select class="select">
                                     <option>Select Leave Type</option>
                                     <option>Casual Leave 12 Days</option>
                                     <option>Medical Leave</option>
@@ -159,26 +158,26 @@
                             <div class="form-group">
                                 <label>From <span class="text-danger">*</span></label>
                                 <div class="cal-icon">
-                                    <input class="form-control datepicker" id="fromdate" name="fromdate"  type="text">
+                                    <input class="form-control datetimepicker" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>To <span class="text-danger">*</span></label>
                                 <div class="cal-icon">
-                                    <input class="form-control datepicker" id="todate" name="todate" type="text">
+                                    <input class="form-control datetimepicker" type="text">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label>Number of days <span class="text-danger">*</span></label>
-                                <input class="form-control" id="result" name="result" readonly type="text">
+                                <input class="form-control" readonly type="text">
                             </div>
                             <div class="form-group">
                                 <label>Remaining Leaves <span class="text-danger">*</span></label>
-                                <input class="form-control" value="12" id="rem_leaves" name="rem_leaves" type="text">
+                                <input class="form-control" readonly value="12" type="text">
                             </div>
                             <div class="form-group">
                                 <label>Leave Reason <span class="text-danger">*</span></label>
-                                <textarea rows="4" class="form-control" id="leave_reason" name="leave_reason"></textarea>
+                                <textarea rows="4" class="form-control"></textarea>
                             </div>
                             <div class="submit-section">
                                 <button class="btn btn-primary submit-btn">Submit</button>
@@ -270,46 +269,4 @@
 
     </div>
     <!-- /Page Wrapper -->
-
-
-
-    @section('script')
-
-
-    <script>
-    $('.datepicker').datepicker({
-      dateFormat: 'yy-mm-dd',
-      changeMonth: true,
-      changeYear: true,
-    });
- 
-    $(document).on('keyup', '#todate', function (e) {
-      var fromdate = $("#fromdate").val();
-      var todate = $("#todate").val();
- 
-      if ((fromdate == "") || (todate == "")) {
-        $("#result").html("Please enter two dates");
-        return false
-      }
- 
-      var dt1 = new Date(fromdate);
-      var dt2 = new Date(todate);
- 
-      var time_difference = dt2.getTime() - dt1.getTime();
-      var result = time_difference / (1000 * 60 * 60 * 24);
- 
-      var output = result;
-      $("#result").val(output);
-    });
-  </script>
-
-
-
-
-
-
-
-
 @endsection
-@endsection
-
