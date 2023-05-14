@@ -13,14 +13,14 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('leaves_emploloyee', function (Blueprint $table) {
+        Schema::create('shifts', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id')->nullable();
-            $table->string('leave_type')->nullable();
-            $table->string('from_date')->nullable();
-            $table->string('to_date')->nullable();
-            $table->string('rem_leaves')->nullable();
-            $table->string('leave_reason')->nullable();
+            $table->string('user_id')->nullable();
+            $table->string('shift_type')->nullable();
+            $table->string('status')->nullable()->default('pending');
+            $table->string('start_time')->nullable();
+            $table->string('end_time')->nullable();
+            $table->string('note')->nullable();
             $table->timestamps();
         });
     }
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('leaves_emploloyee');
+        //
     }
 };

@@ -15,6 +15,8 @@ use App\Http\Controllers\PayrollController;
 use App\Http\Controllers\JobController;
 use App\Http\Controllers\HolidayController;
 use App\Http\Controllers\LeavesController;
+use App\Http\Controllers\LeaveEmployeeController;
+use App\Http\Controllers\ShiftsEmployeeController;
 use App\Http\Controllers\ExpenseReportsController;
 use App\Http\Controllers\PerformanceController;
 use App\Http\Controllers\TrainingController;
@@ -234,6 +236,31 @@ Route::controller(LeavesController::class)->group(function () {
     Route::post('form/leaves/edit/delete','deleteLeave')->middleware('auth')->name('form/leaves/edit/delete');    
 });
 
+
+// ----------------------------- form Employee leaves ------------------------------//
+Route::controller(LeaveEmployeeController::class)->group(function () {
+    Route::get('form/leavesemployee/new', 'leaves')->middleware('auth')->name('form/leavesemployee/new');
+    Route::post('form/leavesemployee/save', 'saveRecord')->middleware('auth')->name('form/leavesemployee/save');
+    Route::post('form/leavesemployee/edit', 'editRecordLeave')->middleware('auth')->name('form/leavesemployee/edit');
+    Route::post('form/leavesemployee/delete','deleteLeave')->middleware('auth')->name('form/leavesemployee/delete');    
+});
+// ----------------------------- form Shifts leaves ------------------------------//
+Route::controller(ShiftsEmployeeController::class)->group(function () {
+    Route::get('form/shiftsemployee/new', 'shifts')->middleware('auth')->name('form/shiftsemployee/new');
+    Route::post('form/shiftsemployee/save', 'saveRecord')->middleware('auth')->name('form/shiftsemployee/save');
+    Route::post('form/shiftsemployee/edit', 'editRecordshifts')->middleware('auth')->name('form/shiftsemployee/edit');
+    Route::post('form/shiftsemployee/delete','deleteshifts')->middleware('auth')->name('form/shiftsemployee/delete');    
+});
+
+
+
+
+
+
+
+
+
+
 // ----------------------------- form attendance  ------------------------------//
 Route::controller(LeavesController::class)->group(function () {
     Route::get('form/leavesettings/page', 'leaveSettings')->middleware('auth')->name('form/leavesettings/page');
@@ -260,6 +287,15 @@ Route::controller(ExpenseReportsController::class)->group(function () {
     Route::get('form/daily/reports/page', 'dailyReport')->middleware('auth')->name('form/daily/reports/page');
     Route::get('form/leave/reports/page','leaveReport')->middleware('auth')->name('form/leave/reports/page');
 });
+
+
+Route::controller(leaveSetting::class)->group(function () {
+    // ----------------------------- form leavesetting  ------------------------------//
+    Route::get('form/leavesettings/page', 'index')->middleware('auth')->name('form/leavesettings/page');    
+    Route::post('form/leavesettings/save', 'saveRecord')->middleware('auth')->name('form/leavesettings/save');    
+    Route::post('form/leavesettings/update', 'updateRecord')->middleware('auth')->name('form/leavesettings/update');    
+    Route::post('form/leavesettings/delete', 'deleteRecord')->middleware('auth')->name('form/leavesettings/delete');  
+  });
 
 // ----------------------------- performance  ------------------------------//
 Route::controller(PerformanceController::class)->group(function () {

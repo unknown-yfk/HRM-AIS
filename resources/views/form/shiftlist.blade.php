@@ -12,7 +12,6 @@
                         <h3 class="page-title">Shift List</h3>
                         <ul class="breadcrumb">
                             <li class="breadcrumb-item"><a href="{{ route('home') }}">Dashboard</a></li>
-                            <li class="breadcrumb-item"><a href="{{ route('all/employee/list') }}">Employees</a></li>
                             <li class="breadcrumb-item active">Shift List</li>
                         </ul>
                     </div>
@@ -25,467 +24,171 @@
             <!-- /Page Header -->
 
             <!-- Content Starts -->
-            <div class="row">
-                <div class="col-md-12">
-                    <div class="table-responsive">
+            {!! Toastr::message() !!}
+               <div class="row">
+                  <div class="col-md-12">
+                     <div class="table-responsive">
                         <table class="table table-striped custom-table datatable">
                             <thead>
                                 <tr>
                                     <th>#</th>
-                                    <th>Shift Name</th>
-                                    <th>Min Start Time</th>
+                                    <th>Shift Type</th>
                                     <th>Start Time</th>
-                                    <th>Max Start Time</th>
-                                    <th>Min End Time</th>
                                     <th>End Time</th>
-                                    <th>Max End Time</th>
-                                    <th>Break Time</th>
                                     <th class="text-center">Status</th>
+                                    <th>Detail</th>
                                     <th class="text-right no-sort">Action</th>
+
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <td>1</td>
-                                    <td>10'o clock Shift</td>
-                                    <td>09:00:00 am</td>
-                                    <td>10:00:00 am</td>
-                                    <td>10:30:00 am</td>
-                                    <td>06:00:00 pm</td>
-                                    <td>06:30:00 pm</td>
-                                    <td>07:00:00 pm</td>
-                                    <td>30 mins</td>
-                                    <td class="text-center">
-                                        <div class="action-label">
-                                            <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                <i class="fa fa-dot-circle-o text-success"></i> Active
-                                            </a>
-                                        </div>
-                                    </td>
+                            @if(!empty($shifts))
+                                    @foreach ($shifts as $shift )  
+                                        <tr>
+                                    <td class="id">{{ $shift->id }}</td>
+                                    <td class="shift_type">{{$shift->shift_type}}</td>
+                                    <td class="start_time">{{$shift->start_time}}</td>
+                                    <td class="end_time">{{$shift->end_time}}</td>
+                                    <td class="shift_status">                                   
+                                         @if($shift->status == "active")
+                                           <i class="fa fa-dot-circle-o text-success">Active</i>
+                                          @endif
+                                          @if($shift->status == "inactive")
+                                           <i class="fa fa-dot-circle-o text-success">In Active</i>
+                                          @endif
+                                   </td>
+                                    <td class="note">{{$shift->note}}</td>
+                                    
                                     <td class="text-right">
                                         <div class="dropdown dropdown-action">
                                             <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_shift"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
+                                                <a class="dropdown-item shiftUpdate" href="#" data-toggle="modal" data-target="#edit_shift"><i class="fa fa-pencil m-r-5"></i> Edit</a>
+                                                <a class="dropdown-item shiftdelete" href="#" data-toggle="modal" data-target="#delete_shift"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
                                             </div>
                                         </div>
                                     </td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>10:30 shift</td>
-                                    <td>10:00:00 am</td>
-                                    <td>10:30:00 am	</td>
-                                    <td>11:00:00 am</td>
-                                    <td>06:30:00 pm</td>
-                                    <td>07:00:00 pm</td>
-                                    <td>07:30:00 pm	</td>
-                                    <td>45 mins</td>
-                                    <td class="text-center">
-                                        <div class="action-label">
-                                            <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                <i class="fa fa-dot-circle-o text-success"></i> Active
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_shift"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>Daily Rout</td>
-                                    <td>06:00:00 am</td>
-                                    <td>06:30:00 am</td>
-                                    <td>07:00:00 am</td>
-                                    <td>03:00:00 pm</td>
-                                    <td>03:30:00 pm</td>
-                                    <td>04:00:00 pm</td>
-                                    <td>60 mins</td>
-                                    <td class="text-center">
-                                        <div class="action-label">
-                                            <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                <i class="fa fa-dot-circle-o text-success"></i> Active
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_shift"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>New Shift</td>
-                                    <td>06:11:00 am</td>
-                                    <td>06:30:00 am</td>
-                                    <td>08:12:00 am</td>
-                                    <td>09:12:00 pm	</td>
-                                    <td>09:30:00 pm</td>
-                                    <td>09:45:00 pm</td>
-                                    <td>45 mins</td>
-                                    <td class="text-center">
-                                        <div class="action-label">
-                                            <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                <i class="fa fa-dot-circle-o text-success"></i> Active
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_shift"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>5</td>
-                                    <td>Recurring Shift</td>
-                                    <td>08:30:00 am</td>
-                                    <td>09:00:00 am</td>
-                                    <td>09:30:00 am</td>
-                                    <td>05:30:00 pm</td>
-                                    <td>06:00:00 pm</td>
-                                    <td>06:30:00 pm</td>
-                                    <td>60 mins</td>
-                                    <td class="text-center">
-                                        <div class="action-label">
-                                            <a class="btn btn-white btn-sm btn-rounded" href="javascript:void(0);">
-                                                <i class="fa fa-dot-circle-o text-success"></i> Active
-                                            </a>
-                                        </div>
-                                    </td>
-                                    <td class="text-right">
-                                        <div class="dropdown dropdown-action">
-                                            <a href="#" class="action-icon dropdown-toggle" data-toggle="dropdown" aria-expanded="false"><i class="material-icons">more_vert</i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#edit_shift"><i class="fa fa-pencil m-r-5"></i> Edit</a>
-                                                <a class="dropdown-item" href="#" data-toggle="modal" data-target="#delete_employee"><i class="fa fa-trash-o m-r-5"></i> Delete</a>
-                                            </div>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
+                                  @endforeach
+                                @endif
+                  </div>
                 </div>
             </div>
             <!-- /Content End -->
-
-
         </div>
         <!-- /Page Content -->
-     
+        </div>
+                </div>
+            </div>
+            <!-- /Content End -->
+        </div>
         <!-- Add Shift Modal -->
-        <div id="add_shift" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+         <div id="add_shift" class="modal custom-modal fade" role="dialog">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Add Shift</h5>
+                        <h5 class="modal-title">Add Shifts</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Shift Name <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group" >
-                                        <label>Min Start Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Start Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>									
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Max Start Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>											
-                                    </div>
-                                </div>		
-                                <div class="col-md-4">
-                                    <div class="form-group" >
-                                        <label>Min End Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>End Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>									
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Max End Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>											
-                                    </div>
-                                </div>	
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Break Time (In Minutes) </label>
-                                        <input type="text" class="form-control">											
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck1">
-                                        <label class="custom-control-label" for="customCheck1">Recurring Shift</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Repeat Every</label>
-                                        <select class="select">
-                                            <option value="">1 </option>
-                                            <option value="1">2</option>
-                                            <option value="2">3</option>
-                                            <option value="3">4</option>
-                                            <option  selected value="4">5</option>
-                                            <option value="3">6</option>
-                                        </select>
-                                        <label class="col-form-label">Week(s)</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group wday-box">
-                                        <label class="checkbox-inline"><input type="checkbox" value="monday" class="days recurring" checked=""><span class="checkmark">M</span></label>
-    
-                                        <label class="checkbox-inline"><input type="checkbox" value="tuesday" class="days recurring" checked=""><span class="checkmark">T</span></label>
-                                    
-                                        <label class="checkbox-inline"><input type="checkbox" value="wednesday" class="days recurring" checked=""><span class="checkmark">W</span></label>
-                                    
-                                        <label class="checkbox-inline"><input type="checkbox" value="thursday" class="days recurring" checked=""><span class="checkmark">T</span></label>
-                                    
-                                        <label class="checkbox-inline"><input type="checkbox" value="friday" class="days recurring" checked=""><span class="checkmark">F</span></label>
-                                    
-                                        <label class="checkbox-inline"><input type="checkbox" value="saturday" class="days recurring"><span class="checkmark">S</span></label>
-                                    
-                                        <label class="checkbox-inline"><input type="checkbox" value="sunday" class="days recurring"><span class="checkmark">S</span></label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="col-form-label">End On <span class="text-danger">*</span></label>
-                                        <div class="cal-icon"><input class="form-control datetimepicker" type="text"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck2">
-                                        <label class="custom-control-label" for="customCheck2">Indefinite</label>
-                                    </div>
-                                </div>								
-                        
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Add Tag </label>
-                                        <input type="text" class="form-control">											
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Add Note </label>
-                                        <textarea class="form-control"></textarea>											
-                                    </div>
+                        <form action="{{ route('form/shiftsemployee/save') }}" method="POST">
+                            @csrf
+                            <div class="form-group">
+                                <label>Name *<span class="text-danger">*</span></label>
+                                <div class="cal-icon">
+                                    <input type="text" class="form-control" id="shift_type" name="shift_type">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label>Start Time * <span class="text-danger">*</span></label>
+                                <div class="cal-icon">
+                                    <input type="text" class="form-control" id="start_time" name="start_time">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>End Time *<span class="text-danger">*</span></label>
+                                <div class="cal-icon">
+                                    <input type="text" class="form-control" id="end_time" name="end_time">
+                                </div>
+                            </div>
+                           <div class="form-group">
+                             <label>Status <span class="text-danger">*</span></label>
+                                <select class="select" id="status" name="status">
+                                    <option selected disabled>Select Leave Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">In Active</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label>Details <span class="text-danger">*</span></label>
+                                <textarea rows="4" class="form-control" id="note" name="note"></textarea>
+                            </div>
                             <div class="submit-section">
-                                <button class="btn btn-primary submit-btn">Submit</button>
+                                <button type="submit" class="btn btn-primary submit-btn">Submit</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
+        <!-- /Add Leave Modal -->
         <!-- /Add Shift Modal -->
 
-        <!-- Edit Shift Modal -->
+        <!-- Editselected  shift Modal -->
         <div id="edit_shift" class="modal custom-modal fade" role="dialog">
-            <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-dialog modal-dialog-centered" role="document">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title">Edit Shift</h5>
+                        <h5 class="modal-title">Edit Selected Shift</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
                     </div>
                     <div class="modal-body">
-                        <form>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Shift Name <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group" >
-                                        <label>Min Start Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Start Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>									
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Max Start Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>											
-                                    </div>
-                                </div>		
-                                <div class="col-md-4">
-                                    <div class="form-group" >
-                                        <label>Min End Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>End Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>									
-                                    </div>
-                                </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Max End Time <span class="text-danger">*</span></label>
-                                        <div class="input-group time timepicker">
-                                            <input class="form-control"><span class="input-group-append input-group-addon"><span class="input-group-text"><i class="fa fa-clock-o"></i></span></span>
-                                        </div>											
-                                    </div>
-                                </div>	
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label>Break Time (In Minutes) </label>
-                                        <input type="text" class="form-control">											
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck3">
-                                        <label class="custom-control-label" for="customCheck3">Recurring Shift</label>
-                                        </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="col-form-label">Repeat Every</label>
-                                        <select class="select">
-                                            <option value="">1 </option>
-                                            <option value="1">2</option>
-                                            <option value="2">3</option>
-                                            <option value="3">4</option>
-                                            <option  selected value="4">5</option>
-                                            <option value="3">6</option>
-                                        </select>
-                                        <label class="col-form-label">Week(s)</label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group wday-box">
-                                        <label class="checkbox-inline"><input type="checkbox" value="monday" class="days recurring" checked=""><span class="checkmark">M</span></label>
-    
-                                        <label class="checkbox-inline"><input type="checkbox" value="tuesday" class="days recurring" checked=""><span class="checkmark">T</span></label>
-                                    
-                                        <label class="checkbox-inline"><input type="checkbox" value="wednesday" class="days recurring" checked=""><span class="checkmark">W</span></label>
-                                    
-                                        <label class="checkbox-inline"><input type="checkbox" value="thursday" class="days recurring" checked=""><span class="checkmark">T</span></label>
-                                    
-                                        <label class="checkbox-inline"><input type="checkbox" value="friday" class="days recurring" checked=""><span class="checkmark">F</span></label>
-                                    
-                                        <label class="checkbox-inline"><input type="checkbox" value="saturday" class="days recurring"><span class="checkmark">S</span></label>
-                                    
-                                        <label class="checkbox-inline"><input type="checkbox" value="sunday" class="days recurring"><span class="checkmark">S</span></label>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="form-group">
-                                        <label class="col-form-label">End On <span class="text-danger">*</span></label>
-                                        <div class="cal-icon"><input class="form-control datetimepicker" type="text"></div>
-                                    </div>
-                                </div>
-                                <div class="col-sm-12">
-                                    <div class="custom-control custom-checkbox">
-                                        <input type="checkbox" class="custom-control-input" id="customCheck4">
-                                        <label class="custom-control-label" for="customCheck4">Indefinite</label>
-                                        </div>
-                                </div>								
-                        
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Add Tag </label>
-                                        <input type="text" class="form-control">											
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Add Note </label>
-                                        <textarea class="form-control"></textarea>											
-                                    </div>
+                        <form action="{{ route('form/shiftsemployee/edit') }}" method="POST">
+                            @csrf
+                            <input type="hidden" id="e_id" name="id" value="">
+                            <div class="form-group">
+                                <label>Shift Type <span class="text-danger">*</span></label>
+                                <div class="cal-icon">
+                                    <input type="text" class="form-control" id="e_shift_type" name="shift_type" value="">
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label>From <span class="text-danger">*</span></label>
+                                <div class="cal-icon">
+                                    <input type="text" class="form-control" id="e_from_time" name="start_time" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label>To <span class="text-danger">*</span></label>
+                                <div class="cal-icon">
+                                    <input type="text" class="form-control" id="e_to_end" name="end_time" value="">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                 <label>Leave Status <span class="text-danger">*</span></label>
+                                  <select class="select" id="e_leave_status" name="status">
+                                    <option selected disabled>Status</option>
+                                    <option value="active">Active</option>
+                                    <option value="inactive">In Active</option>
+                                   </select>
+                                </div>
+                            <div class="form-group">
+                                <label>Leave Reason <span class="text-danger">*</span></label>
+                                <textarea rows="4" class="form-control" id="e_leave_reason" name="note" value=""></textarea>
+                            </div>
                             <div class="submit-section">
-                                <button class="btn btn-primary submit-btn">Submit</button>
+                                <button type="submit" class="btn btn-primary submit-btn">Save</button>
                             </div>
                         </form>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /Edit Shift Modal -->
+        <!-- /Edit Leave Modal -->
 
         <!-- Add Schedule Modal -->
         <div id="add_schedule" class="modal custom-modal fade" role="dialog">
@@ -627,31 +330,63 @@
         </div>
         <!-- /Add Schedule Modal -->
             
-        <!-- Delete Shift Modal -->
-        <div class="modal custom-modal fade" id="delete_employee" role="dialog">
+        <!-- Delete Leave Modal -->
+        <div class="modal custom-modal fade" id="delete_shift" role="dialog">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body">
                         <div class="form-header">
-                            <h3>Delete Shift</h3>
+                            <h3>Delete Selected Shift</h3>
                             <p>Are you sure want to delete?</p>
                         </div>
                         <div class="modal-btn delete-action">
-                            <div class="row">
-                                <div class="col-6">
-                                    <a href="javascript:void(0);" class="btn btn-primary continue-btn">Delete</a>
+                            <form action="{{ route('form/shiftsemployee/delete') }}" method="POST">
+                                @csrf
+                                <input type="hidden" name="id" class="e_id" value="">
+                                <div class="row">
+                                    <div class="col-6">
+                                        <button type="submit" class="btn btn-primary continue-btn submit-btn">Delete</button>
+                                    </div>
+                                    <div class="col-6">
+                                        <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
+                                        </div>
                                 </div>
-                                <div class="col-6">
-                                    <a href="javascript:void(0);" data-dismiss="modal" class="btn btn-primary cancel-btn">Cancel</a>
-                                </div>
-                            </div>
+                            </form>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <!-- /Delete Employee Modal -->
-      
+        <!-- /Delete Leave Modal -->
     </div>
-    <!-- Page Wrapper -->
-@endsection
+    <!-- /Page Wrapper -->
+    @section('script')
+    <script>
+        document.getElementById("year").innerHTML = new Date().getFullYear();
+    </script>
+    <script>
+        $(document).on('click','.shiftUpdate',function()
+        {
+            var _this = $(this).parents('tr');
+            $('#e_id').val(_this.find('.id').text());
+            $('#e_shift_type').val(_this.find('.shift_type').text());  
+            $('#e_from_time').val(_this.find('.start_time').text());  
+            $('#e_to_end').val(_this.find('.end_time').text());  
+            $('#e_leave_reason').val(_this.find('.note').text());
+
+
+            var status = (_this.find(".shift_status").text());
+            var _option = '<option selected value="' + status+ '">' + _this.find('.shift_status').text() + '</option>'
+            $( _option).appendTo("#e_leave_status");
+        });
+    </script>
+     <!-- delete scfript -->
+     <script>
+        $(document).on('click','.shiftdelete',function()
+        {
+            var _this = $(this).parents('tr');
+            $('.e_id').val(_this.find('.id').text());
+        });
+    </script>
+    @endsection
+    @endsection
