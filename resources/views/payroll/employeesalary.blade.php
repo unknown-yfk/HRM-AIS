@@ -117,7 +117,7 @@
                                     <td>{{ $items->email }}</td>
                                     <td>{{ $items->join_date }}</td>
                                     <td>{{ $items->role_name }}</td>
-                                    <td>${{ $items->salary }}</td>
+                                    <td>{{ $items->salary }} birr</td>
                                     <td hidden class="salary">{{ $items->salary }}</td>
                                     <td><a class="btn btn-sm btn-primary" href="{{ url('form/salary/view/'.$items->user_id) }}" target="_blank">Generate Slip</a></td>
                                     <td class="text-right">

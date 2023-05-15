@@ -74,19 +74,19 @@
                                                     $Total_Earnings   = $a + $b + $c + $e;
                                                 ?>
                                                 <tr>
-                                                    <td><strong>Basic Salary</strong> <span class="float-right">${{ $users->basic }}</span></td>
+                                                    <td><strong>Basic Salary</strong> <span class="float-right">{{ $users->basic }} birr</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>House Rent Allowance (H.R.A.)</strong> <span class="float-right">${{ $users->hra }}</span></td>
+                                                    <td><strong>House Rent Allowance (H.R.A.)</strong> <span class="float-right">{{ $users->hra }} birr</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>Conveyance</strong> <span class="float-right">${{ $users->conveyance }}</span></td>
+                                                    <td><strong>Conveyance</strong> <span class="float-right">{{ $users->conveyance }} birr</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>Other Allowance</strong> <span class="float-right">${{ $users->allowance }}</span></td>
+                                                    <td><strong>Other Allowance</strong> <span class="float-right">{{ $users->allowance }} birr</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>Total Earnings</strong> <span class="float-right"><strong>$ <?php echo $Total_Earnings ?></strong></span></td>
+                                                    <td><strong>Total Earnings</strong> <span class="float-right"><strong><?php echo $Total_Earnings ?> birr</strong></span></td>
                                                 </tr>
                                             </tbody>
                                         </table>
@@ -105,19 +105,19 @@
                                                     $Total_Deductions   = $a + $b + $c + $e;
                                                 ?>
                                                 <tr>
-                                                    <td><strong>Tax Deducted at Source (T.D.S.)</strong> <span class="float-right">${{ $users->tds }}</span></td>
+                                                    <td><strong>Tax Deducted at Source (T.D.S.)</strong> <span class="float-right">{{ $users->tds }} birr</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>Provident Fund</strong> <span class="float-right">${{ $users->prof_tax }}</span></td>
+                                                    <td><strong>Provident Fund</strong> <span class="float-right">{{ $users->prof_tax }} birr</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>ESI</strong> <span class="float-right">${{ $users->esi }}</span></td>
+                                                    <td><strong>ESI</strong> <span class="float-right">{{ $users->esi }} birr</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>Loan</strong> <span class="float-right">${{ $users->labour_welfare }}</span></td>
+                                                    <td><strong>Loan</strong> <span class="float-right">{{ $users->labour_welfare }} birr</span></td>
                                                 </tr>
                                                 <tr>
-                                                    <td><strong>Total Deductions</strong> <span class="float-right"><strong>$<?php echo $Total_Deductions;?></strong></span></td>
+                                                    <td><strong>Total Deductions</strong> <span class="float-right"><strong><?php echo $Total_Deductions;?> birr</strong></span></td>
                                                 </tr>
                                             </tbody>
                                         </table>

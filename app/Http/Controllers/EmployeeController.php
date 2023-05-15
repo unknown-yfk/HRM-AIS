@@ -674,8 +674,6 @@ class EmployeeController extends Controller
 
         'project_name'     =>    'required|string|max:255',
         'deadline'         =>    'required|string|max:255',
-        'total_hrs'        =>    'required|string|max:255',
-        'remaining_hrs'    =>    'required|string|max:255',
         'reg_date'         =>    'required|string|max:255',
         'assigned_hours'   =>    'required|string|max:255',
         'description'      =>    'required|string|max:255'
@@ -695,8 +693,6 @@ class EmployeeController extends Controller
 
             $timesheets->project_name    = $request->project_name;
             $timesheets->deadline        = $request->deadline;
-            $timesheets->total_hrs       = $request->total_hrs;
-            $timesheets->remaining_hrs   = $request->remaining_hrs;
             $timesheets->reg_date        = $request->reg_date;
             $timesheets->assigned_hours  = $request->assigned_hours;
             $timesheets->description     = $request->description;
@@ -736,8 +732,6 @@ class EmployeeController extends Controller
                 'id'=>$request->id,  
                 'project_name'=>$request->project_name,   
                 'deadline'=>$request->deadline,
-                'total_hrs'=>$request->total_hrs,
-                'remaining_hrs'=>$request->remaining_hrs,
                 'reg_date'=>$request->reg_date,
                 'assigned_hours'=>$request->assigned_hours,
                 'description'=>$request->description, 

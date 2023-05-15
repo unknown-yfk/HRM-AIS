@@ -34,7 +34,6 @@
                                     <th>Date</th>
                                     <th>Projects</th>
                                     <th class="text-center">Assigned Hours</th>
-                                    <th class="text-center">Hours</th>
                                     <th class="d-none d-sm-table-cell">Description</th>
                                     <th class="text-right">Actions</th>
                                 </tr>
@@ -51,7 +50,7 @@
                                     </td>
                                     <td  class="deadline">{{ $views->deadline }}</td>
                                     <td  class="project">{{ $views->project_name }}</td>
-                                    <td  class="total_hrs">{{ $views->total_hrs }}</td>
+        
                                     <td  class="assigned_hours">{{ $views->assigned_hours }}</td>
                                     <td  class="description">
                                         <p>{{ $views->description }}</p>
@@ -110,14 +109,7 @@
                                         <input class="form-control" value="{{ $pro->deadline }}" type="text" name="deadline" id="deadline">
                                     </div>
                                 </div>
-                                <div class="form-group col-sm-4">
-                                    <label>Total Hours <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="total_hrs" id="total_hrs">
-                                </div>
-                                <div class="form-group col-sm-4">
-                                    <label>Remaining Hours <span class="text-danger">*</span></label>
-                                    <input class="form-control" type="text" name="remaining_hrs" id="remaining_hrs">
-                                </div>
+                    
                             </div>
                             <div class="row">
                                 <div class="form-group col-sm-6">

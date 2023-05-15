@@ -17,7 +17,10 @@
                         </ul>
                     </div>
                     <div class="col-auto float-right ml-auto">
+                    @if (Auth::user()->role_name=='Admin' || Auth::user()->role_name=='Super Admin' || Auth::user()->role_name=='HRM')
+
                         <a href="#" class="btn add-btn" data-toggle="modal" data-target="#add_employee"><i class="fa fa-plus"></i> Add Employee</a>
+                       @endif
                         <div class="view-icons">
                             <a href="{{ route('all/employee/card') }}" class="grid-view btn btn-link active"><i class="fa fa-th"></i></a>
                             <a href="{{ route('all/employee/list') }}" class="list-view btn btn-link"><i class="fa fa-bars"></i></a>

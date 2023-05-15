@@ -13,7 +13,7 @@
                         <span> Dashboard</span> <span class="menu-arrow"></span>
                     </a>
                     <ul style="{{ request()->is('/*') ? 'display: block;' : 'display: none;' }}">
-                    @if (Auth::user()->role_name=='Admin' || Auth::user()->role_name=='Super Admin' || Auth::user()->role_name=='HR')
+                    @if (Auth::user()->role_name=='Admin' || Auth::user()->role_name=='Super Admin' || Auth::user()->role_name=='HRM')
                         <li><a class="{{set_active(['home'])}}" href="{{ route('home') }}">Admin Dashboard</a></li>
                         <li><a class="{{set_active(['em/dashboard'])}}" href="{{ route('em/dashboard') }}">Employee Dashboard</a></li>
                     @elseif (Auth::user()->role_name=='Employee')
@@ -21,7 +21,7 @@
                         @endif
                     </ul>
                 </li>
-                @if (Auth::user()->role_name=='Admin' || Auth::user()->role_name=='Super Admin' || Auth::user()->role_name=='HR')
+                @if (Auth::user()->role_name=='Admin' || Auth::user()->role_name=='Super Admin' || Auth::user()->role_name=='HRM')
                     <li class="menu-title"> <span>Authentication</span> </li>
                     <li class="{{set_active(['search/user/list','userManagement','activity/log','activity/login/logout'])}} submenu">
                         <a href="#" class="{{ set_active(['search/user/list','userManagement','activity/log','activity/login/logout']) ? 'noti-dot' : '' }}">
@@ -62,14 +62,16 @@
                       
                       
                         <li><a class="{{set_active(['form/shiftscheduling/page'])}}" href="{{ route('form/shiftsemployee/new') }}">Shifts </a></li>
-                        <li><a class="{{set_active(['form/shiftscheduling/page'])}}" href="{{ route('form/shiftscheduling/page') }}">Schedule</a></li>
+                        <!-- <li><a class="{{set_active(['form/shiftscheduling/page'])}}" href="{{ route('form/shiftscheduling/page') }}">Schedule</a></li> -->
 
                         
                         
                         <li><a class="{{set_active(['form/overtime/page'])}}" href="{{ route('form/overtime/page') }}">Overtime</a></li>
                     </ul>
                 </li>
-                <li class="menu-title"> <span>HR</span> </li>
+                @if (Auth::user()->role_name=='Admin' || Auth::user()->role_name=='Super Admin' || Auth::user()->role_name=='HRM')
+
+                <li class="menu-title"> <span>HRM</span> </li>
                 <li class="{{set_active(['create/estimate/page','form/estimates/page','payments','expenses/page'])}} submenu">
                     <a href="#" class="{{ set_active(['create/estimate/page','form/estimates/page','payments','expenses/page']) ? 'noti-dot' : '' }}">
                         <i class="la la-files-o"></i>
@@ -125,9 +127,6 @@
                     </ul>
                 </li>
                 <li class="menu-title"> <span>Administration</span> </li>
-                <li> <a href="assets.html"><i class="la la-object-ungroup">
-                    </i> <span>Assets</span></a>
-                </li>
                 <li class="{{set_active(['user/dashboard/index','jobs/dashboard/index','user/dashboard/all','user/dashboard/applied/jobs','user/dashboard/interviewing','user/dashboard/offered/jobs','user/dashboard/visited/jobs','user/dashboard/archived/jobs','user/dashboard/save','jobs','job/applicants','job/details','page/manage/resumes','page/shortlist/candidates','page/interview/questions','page/offer/approvals','page/experience/level','page/candidates','page/schedule/timing','page/aptitude/result'])}} submenu">
                     <a href="#" class="{{ set_active(['user/dashboard/index','jobs/dashboard/index','user/dashboard/all','user/dashboard/save','jobs','job/applicants','job/details']) ? 'noti-dot' : '' }}"><i class="la la-briefcase"></i>
                         <span> Jobs </span> <span class="menu-arrow"></span>
@@ -146,6 +145,8 @@
                         <li><a class="{{set_active(['page/aptitude/result'])}}" href="{{ route('page/aptitude/result') }}"> Aptitude Results </a></li>
                     </ul>
                 </li>
+                @endif
+
                 <li class="menu-title"> <span>Pages</span> </li>
 
                       <!-- system users -->

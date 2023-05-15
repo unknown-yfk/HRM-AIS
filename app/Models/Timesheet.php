@@ -13,8 +13,6 @@ class Timesheet extends Model
         
         'project_name',
         'deadline',
-        'total_hrs',
-        'remaining_hrs',
         'reg_date',
         'assigned_hours',
         'description'

@@ -48,7 +48,7 @@ class LeaveEmployeeController extends Controller
             $days    = $day->d;
 
             $leaves = new leavesEmployee;
-            $leaves->user_id        = $request->user_id;
+            $leaves->user_id       = $request->user_id;
             $leaves->leave_type    = $request->leave_type;
             $leaves->from_date     = $request->from_date;
             $leaves->to_date       = $request->to_date;
